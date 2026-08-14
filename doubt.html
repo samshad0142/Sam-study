@@ -1,0 +1,22 @@
+
+{% extends "base.html" %}
+{% block title %}AI Doubt Solver • SamStudy{% endblock %}
+{% block content %}
+<section class="page-title">
+  <span class="eyebrow sky">AI DOUBT SOLVER</span>
+  <h1>Ask. Understand. Move ahead.</h1>
+  <p>No complicated steps — put your doubt directly into the solver.</p>
+</section>
+
+<div class="doubt-layout">
+  <div class="doubt-card card">
+    <div class="ai-badge">AI</div>
+    <label>Subject / context (optional)<input id="doubtContext" placeholder="Physics, Maths, DSA, JEE, SSC..."></label>
+    <label>Your doubt<textarea id="doubtText" rows="9" placeholder="Type your question here..."></textarea></label>
+    <button id="solveDoubt" class="btn btn-primary wide">Solve this doubt ✦</button>
+  </div>
+  <div id="answerCard" class="answer-card card">
+    <div class="answer-placeholder"><div class="big-ai">AI</div><h2>Your solution will appear here.</h2><p>Ask a clear question and SamStudy AI will explain it step by step.</p></div>
+  </div>
+</div>
+{% endblock %}

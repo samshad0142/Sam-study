@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Smart Quiz • SamStudy{% endblock %}
+{% block content %}
+<section class="page-title"><span class="eyebrow sky">AI QUIZ ENGINE</span><h1>Build a fresh quiz.</h1><p>Select class, level, exam and the exact subject. Every generation is a new question set.</p></section>
+<div class="quiz-builder card">
+  <label>Class / Year<select id="quizYear"><option value="1">B.Tech 1st Year</option><option value="2">B.Tech 2nd Year</option><option value="3">B.Tech 3rd Year</option><option value="4">B.Tech 4th Year</option><option value="12">Class 12</option><option value="11">Class 11</option></select></label>
+  <label>Level<select id="quizLevel"><option>Beginner</option><option>Intermediate</option><option>Advanced</option><option>JEE Main</option><option>JEE Advanced</option></select></label>
+  <label>Exam<select id="quizExam"><option>AKTU</option><option>JEE Main</option><option>JEE Advanced</option><option>SSC</option><option>UPSC</option><option>NEET</option><option>Other Government Exam</option></select></label>
+  <label>Subject<select id="quizSubject"></select></label>
+  <button id="generateQuiz" class="btn btn-primary wide">Generate Fresh Quiz ✦</button>
+</div>
+<div id="quizArea" class="quiz-area hidden"></div>
+{% endblock %}

@@ -1,0 +1,25 @@
+
+{% extends "base.html" %}
+{% block title %}Create Account • SamStudy{% endblock %}
+{% block content %}
+<section class="auth-layout">
+  <div class="auth-card">
+    <div class="auth-logo">S</div>
+    <div class="eyebrow sky center">JOIN SAMSTUDY</div>
+    <h1>Create your account</h1>
+    <p class="muted center">Start learning in a few seconds.</p>
+
+    <button id="googleSignup" class="social-btn"><span class="google-g">G</span> Continue with Google</button>
+    <div class="divider"><span>OR</span></div>
+
+    <form id="signupForm" class="form-stack">
+      <label>Name<input id="name" type="text" required placeholder="Your name"></label>
+      <label>Email address<input id="email" type="email" autocomplete="email" required placeholder="you@example.com"></label>
+      <label>Password<input id="password" type="password" minlength="6" autocomplete="new-password" required placeholder="At least 6 characters"></label>
+      <button class="btn btn-primary wide" type="submit">Create account</button>
+    </form>
+    <div class="auth-links"><a href="/login">Already have an account? Login</a></div>
+    <p id="authMessage" class="form-message"></p>
+  </div>
+</section>
+{% endblock %}

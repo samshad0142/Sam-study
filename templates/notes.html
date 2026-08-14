@@ -1,0 +1,20 @@
+
+{% extends "base.html" %}
+{% block title %}Notes • SamStudy{% endblock %}
+{% block content %}
+<section class="page-title">
+  <span class="eyebrow sky">B.TECH NOTES</span>
+  <h1>Notes, unit by unit.</h1>
+  <p>Pick your year and subject. Download the file directly.</p>
+</section>
+
+<div class="filter-card">
+  <label>Year<select id="yearFilter"><option value="">All years</option><option value="1">1st Year</option><option value="2">2nd Year</option><option value="3">3rd Year</option><option value="4">4th Year</option></select></label>
+  <label>Subject<input id="subjectFilter" placeholder="e.g. Data Structures"></label>
+  <label>Unit<select id="unitFilter"><option value="">All units</option><option>Unit 1</option><option>Unit 2</option><option>Unit 3</option><option>Unit 4</option><option>Unit 5</option></select></label>
+  <button class="btn btn-primary" id="loadNotes">Find Notes</button>
+</div>
+
+<div id="notesGrid" class="notes-grid"></div>
+<div id="notesEmpty" class="empty-state hidden">No notes found for this selection.</div>
+{% endblock %}

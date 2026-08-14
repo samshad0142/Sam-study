@@ -1,0 +1,28 @@
+
+{% extends "base.html" %}
+{% block title %}Login • SamStudy{% endblock %}
+{% block content %}
+<section class="auth-layout">
+  <div class="auth-card">
+    <div class="auth-logo">S</div>
+    <div class="eyebrow sky center">WELCOME BACK</div>
+    <h1>Login to SamStudy</h1>
+    <p class="muted center">Learn. Practice. Master.</p>
+
+    <button id="googleLogin" class="social-btn"><span class="google-g">G</span> Continue with Google</button>
+    <div class="divider"><span>OR</span></div>
+
+    <form id="loginForm" class="form-stack">
+      <label>Email address<input id="email" type="email" autocomplete="email" required placeholder="you@example.com"></label>
+      <label>Password<input id="password" type="password" autocomplete="current-password" required placeholder="Enter password"></label>
+      <button class="btn btn-primary wide" type="submit">Login</button>
+    </form>
+
+    <div class="auth-links">
+      <a href="/signup">Create new account</a>
+      <button id="forgotPassword" class="link-btn">Forgot password?</button>
+    </div>
+    <p id="authMessage" class="form-message"></p>
+  </div>
+</section>
+{% endblock %}

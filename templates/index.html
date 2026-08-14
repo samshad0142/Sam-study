@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}SamStudy • Learn. Practice. Master.{% endblock %}
+{% block content %}
+<section class="hero hero-large">
+  <div class="hero-content">
+    <div class="eyebrow">B.TECH LEARNING PLATFORM</div>
+    <h1>Study smarter.<br><span>Build stronger.</span></h1>
+    <p>Notes, PYQs, quizzes, batches, 3-D learning and AI-powered doubt solving — all in one place.</p>
+    <div class="hero-actions">
+      <a class="btn btn-light" href="/batches">Explore Batches</a>
+      <a class="btn btn-outline-light" href="/login">Login / Sign up</a>
+    </div>
+    <div class="hero-mini-note"><span>✦</span> Built for students • Year-wise • Subject-wise • Unit-wise</div>
+  </div>
+  <div class="hero-3d-card" aria-label="Animated SamStudy SS logo">
+    <div class="logo-stage">
+      <div class="logo-orbit orbit-a"></div><div class="logo-orbit orbit-b"></div>
+      <div class="ss-logo-3d"><span>SS</span></div>
+      <div class="logo-caption">SAMSTUDY</div>
+    </div>
+  </div>
+</section>
+
+<section class="section year-section">
+  <div class="section-heading">
+    <div><span class="eyebrow sky">B.TECH BATCHES</span><h2>Choose your year.</h2></div>
+    <a class="text-link" href="/batches">Open all batches →</a>
+  </div>
+  <div class="year-home-grid">
+    <a class="year-home-card year-one" href="/notes?year=1"><div class="big-year">1st</div><div><b>First Year</b><span>Foundation subjects &amp; core basics</span></div><strong>→</strong></a>
+    <a class="year-home-card year-two" href="/notes?year=2"><div class="big-year">2nd</div><div><b>Second Year</b><span>DSA, OOP, DLD &amp; core CSE</span></div><strong>→</strong></a>
+    <a class="year-home-card year-three" href="/notes?year=3"><div class="big-year">3rd</div><div><b>Third Year</b><span>DBMS, CN, TOC, AI &amp; Web</span></div><strong>→</strong></a>
+    <a class="year-home-card year-four" href="/notes?year=4"><div class="big-year">4th</div><div><b>Fourth Year</b><span>Advanced subjects &amp; major project</span></div><strong>→</strong></a>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-heading"><div><span class="eyebrow sky">SAMSTUDY TOOLS</span><h2>Everything in one place.</h2></div></div>
+  <div class="feature-grid feature-grid-large">
+    <article class="feature-card feature-blue"><div class="feature-icon blue">▤</div><h3>B.Tech Notes</h3><p>Year-wise, subject-wise and unit-wise notes with direct downloads.</p><a href="/notes">Open Notes →</a></article>
+    <article class="feature-card feature-violet"><div class="feature-icon violet">✦</div><h3>Smart Quiz</h3><p>Choose class, level, exam and subject. Generate a fresh relevant quiz.</p><a href="/quiz">Start Quiz →</a></article>
+    <article class="feature-card feature-cyan"><div class="feature-icon cyan">AI</div><h3>AI Doubt Solver</h3><p>Ask your doubt directly and get a clear step-by-step solution.</p><a href="/doubt">Solve Doubt →</a></article>
+    <article class="feature-card feature-orange"><div class="feature-icon orange">3D</div><h3>3-D Learning</h3><p>Explore visual concept modules with an interactive learning feel.</p><a href="/3d">Explore 3-D →</a></article>
+  </div>
+</section>
+
+<section class="quote-card">
+  <div class="quote-mark">“</div>
+  <blockquote>Kuch tere saath honge, kuch tere kaan bhi bharenge.<br>Parinde jab zameen pe aaye hain, to udaan bhi bharenge.</blockquote>
+  <div class="quote-author">— Sam Malik</div>
+</section>
+
+<section class="youtube-card">
+  <div class="youtube-icon">▶</div>
+  <div class="youtube-copy"><span class="eyebrow youtube-eyebrow">MY YOUTUBE CHANNEL</span><h2>Sam_malik77</h2><p>Shayari • thoughts • creative content</p></div>
+  <a class="btn youtube-btn" href="https://youtube.com/@sam_malik77" target="_blank" rel="noopener">Visit YouTube →</a>
+</section>
+
+<section class="cta-card">
+  <div><span class="eyebrow">KEEP MOVING</span><h2>Your next level starts with one focused session.</h2></div>
+  <a class="btn btn-primary" href="/quiz">Practice now →</a>
+</section>
+{% endblock %}

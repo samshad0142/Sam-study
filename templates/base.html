@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#38bdf8">
+<title>{% block title %}SamStudy{% endblock %}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<script src="{{ url_for('static', filename='firebase-client.js') }}" defer></script>
+<script src="{{ url_for('static', filename='app.js') }}" defer></script>
+<script>(function(){const s=localStorage.getItem('samstudy-theme');const d=window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches;document.documentElement.dataset.theme=s||(d?'dark':'light')})();</script>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="/" aria-label="SamStudy home"><span class="brand-ss">SS</span><span class="brand-name">Sam<span>Study</span></span></a>
+  <nav class="main-nav"><a href="/">Home</a><a href="/batches">Batches</a><a href="/notes">Notes</a><a href="/quiz">Quiz</a><a href="/3d">3-D</a><a href="/doubt">Doubt</a></nav>
+  <div class="header-actions"><button class="icon-btn" id="themeToggle" title="Toggle night mode">☾</button><a class="btn btn-primary" id="loginLink" href="/login">Login</a><button class="btn btn-soft hidden" id="logoutBtn">Logout</button></div>
+</header>
+<main class="page-shell">{% block content %}{% endblock %}</main>
+<footer class="footer"><div class="footer-brand"><span class="footer-ss">SS</span> Sam<span>Study</span></div><div>Learn. Practice. Master.</div><div class="footer-links"><a class="youtube-link" href="https://youtube.com/@sam_malik77" target="_blank" rel="noopener">▶ Visit Sam_malik77 on YouTube</a></div><small>© 2026 SamStudy · Student learning platform</small></footer>
+<div id="toast" class="toast"></div>
+</body></html>

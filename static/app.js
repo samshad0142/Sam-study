@@ -2,6 +2,7 @@
   const $ = s => document.querySelector(s);
 
   /* ================= THEME ================= */
+
   const toggle = $("#themeToggle");
 
   function syncTheme() {
@@ -22,90 +23,395 @@
     };
   }
 
+  const savedTheme = localStorage.getItem("samstudy-theme");
+  if (savedTheme) {
+    document.documentElement.dataset.theme = savedTheme;
+  }
+
   syncTheme();
 
 
   /* ================= AUTH / HEADER ================= */
 
-  function updateHeader(user) {
-    const login = $("#loginLink");
-    const profile = $("#profileLink");
-    const logout = $("#logoutBtn");
-    const photo = $("#headerProfilePhoto");
-
-    if (user) {
-      if (login) login.classList.add("hidden");
-      if (logout) logout.classList.add("hidden");
-
-      if (profile) {
-        profile.classList.remove("hidden");
-        profile.href = "/profile";
-      }
-
-      if (photo) {
-        photo.src =
-          user.photoURL ||
-          "https://ui-avatars.com/api/?name=" +
-            encodeURIComponent(user.displayName || "Student");
-        photo.classList.remove("hidden");
-      }
-    } else {
-      if (login) login.classList.remove("hidden");
-      if (profile) profile.classList.add("hidden");
-      if (logout) logout.classList.add("hidden");
-      if (photo) photo.classList.add("hidden");
-    }
-  }
-
   if (window.samAuth) {
-    window.samAuth.onAuthStateChanged(updateHeader);
+    window.samAuth.onAuthStateChanged(async user => {
+
+      const login = $("#loginLink");
+      const profile = $("#profileLink");
+      const logout = $("#logoutBtn");
+
+      if (user) {
+        if (login) login.classList.add("hidden");
+        if (logout) logout.classList.add("hidden");
+        if (profile) profile.classList.remove("hidden");
+
+        const name = $("#userName");
+        if (name) {
+          name.textContent =
+            user.displayName ||
+            user.email?.split("@")[0] ||
+            "Student";
+        }
+
+      } else {
+        if (login) login.classList.remove("hidden");
+        if (profile) profile.classList.add("hidden");
+        if (logout) logout.classList.add("hidden");
+      }
+    });
   }
 
-  $("#logoutBtn")?.addEventListener("click", async () => {
-    try {
-      await window.samAuth.signOut();
-      location.href = "/";
-    } catch (e) {
-      show("Logout failed.");
-    }
-  });
+
+  /* ================= LOGOUT ================= */
+
+  const logout = $("#logoutBtn");
+
+  if (logout && window.samAuth) {
+    logout.onclick = async () => {
+      try {
+        await window.samAuth.signOut();
+        location.href = "/";
+      } catch (e) {
+        show(e.message);
+      }
+    };
+  }
 
 
   /* ================= PROFILE ================= */
 
-  if (location.pathname === "/profile" && window.samAuth) {
-    window.samAuth.onAuthStateChanged(user => {
-      if (!user) {
-        location.href = "/login";
-        return;
-      }
+  const profileForm = $("#profileForm");
 
-      const name = $("#studentName");
-      const email = $("#studentEmail");
-      const photo = $("#profilePhoto");
+  if (profileForm && window.samAuth) {
 
-      if (name && !name.value) {
-        name.value = user.displayName || "";
-      }
+    const photoInput =
+      $("#profilePhoto") ||
+      $("#photoInput") ||
+      $("#profileImageInput");
+
+    const photoPreview =
+      $("#profilePreview") ||
+      $("#profilePhotoPreview") ||
+      $("#profileImage");
+
+    const studentName =
+      $("#studentName") ||
+      $("#profileName") ||
+      $("#name");
+
+    const course =
+      $("#course") ||
+      $("#profileCourse");
+
+    const branch =
+      $("#branch") ||
+      $("#profileBranch");
+
+    const exam =
+      $("#exam") ||
+      $("#profileExam");
+
+    const email =
+      $("#profileEmail") ||
+      $("#email");
+
+    const verifyBtn =
+      $("#verifyEmail") ||
+      $("#verifyGmail");
+
+    const profileLogout =
+      $("#profileLogout") ||
+      $("#profileLogoutBtn");
+
+    let photoData = "";
+
+    /* Load Firebase profile */
+
+    async function loadProfile() {
+
+      const user = window.samAuth.currentUser;
+
+      if (!user) return;
 
       if (email) {
+        email.value = user.email || "";
         email.textContent = user.email || "";
       }
 
-      if (photo) {
-        photo.src =
-          user.photoURL ||
-          "https://ui-avatars.com/api/?name=" +
-            encodeURIComponent(user.displayName || "Student");
+      if (studentName) {
+        studentName.value =
+          user.displayName ||
+          localStorage.getItem("samstudy-name") ||
+          "";
       }
 
-      const verified = $("#emailVerified");
-
-      if (verified) {
-        verified.textContent = user.emailVerified
-          ? "✓ Gmail verified"
-          : "⚠ Gmail not verified";
+      if (user.photoURL && photoPreview) {
+        photoPreview.src = user.photoURL;
       }
+
+      try {
+
+        const snap = await firebase
+          .firestore()
+          .collection("users")
+          .doc(user.uid)
+          .get();
+
+        if (snap.exists) {
+
+          const data = snap.data();
+
+          if (studentName && data.name)
+            studentName.value = data.name;
+
+          if (course && data.course)
+            course.value = data.course;
+
+          if (branch && data.branch)
+            branch.value = data.branch;
+
+          if (exam && data.exam)
+            exam.value = data.exam;
+
+          if (data.photo && photoPreview) {
+            photoPreview.src = data.photo;
+            photoData = data.photo;
+          }
+        }
+
+      } catch (e) {
+        console.log("Profile load:", e);
+      }
+
+      updateVerification(user);
+    }
+
+
+    /* Photo */
+
+    if (photoInput) {
+
+      photoInput.addEventListener("change", e => {
+
+        const file = e.target.files[0];
+
+        if (!file) return;
+
+        if (!file.type.startsWith("image/")) {
+          show("Please select an image.");
+          return;
+        }
+
+        const reader = new FileReader();
+
+        reader.onload = event => {
+
+          const img = new Image();
+
+          img.onload = () => {
+
+            const canvas = document.createElement("canvas");
+
+            const size = 400;
+
+            canvas.width = size;
+            canvas.height = size;
+
+            const ctx = canvas.getContext("2d");
+
+            const scale =
+              Math.max(
+                size / img.width,
+                size / img.height
+              );
+
+            const w = img.width * scale;
+            const h = img.height * scale;
+
+            const x = (size - w) / 2;
+            const y = (size - h) / 2;
+
+            ctx.drawImage(
+              img,
+              x,
+              y,
+              w,
+              h
+            );
+
+            photoData =
+              canvas.toDataURL(
+                "image/jpeg",
+                0.75
+              );
+
+            if (photoPreview) {
+              photoPreview.src = photoData;
+            }
+          };
+
+          img.src = event.target.result;
+        };
+
+        reader.readAsDataURL(file);
+      });
+    }
+
+
+    /* Save profile */
+
+    profileForm.addEventListener("submit", async e => {
+
+      e.preventDefault();
+
+      const user = window.samAuth.currentUser;
+
+      if (!user) {
+        show("Please login first.");
+        return;
+      }
+
+      const name =
+        studentName?.value.trim() || "";
+
+      const selectedCourse =
+        course?.value || "";
+
+      const selectedBranch =
+        branch?.value.trim() || "";
+
+      const selectedExam =
+        exam?.value || "";
+
+      if (!name) {
+        show("Please enter your student name.");
+        return;
+      }
+
+      try {
+
+        await user.updateProfile({
+          displayName: name
+        });
+
+        const data = {
+          name: name,
+          email: user.email || "",
+          course: selectedCourse,
+          branch: selectedBranch,
+          exam: selectedExam,
+          updatedAt:
+            firebase.firestore.FieldValue.serverTimestamp()
+        };
+
+        if (photoData) {
+          data.photo = photoData;
+        }
+
+        await firebase
+          .firestore()
+          .collection("users")
+          .doc(user.uid)
+          .set(data, { merge: true });
+
+        localStorage.setItem(
+          "samstudy-name",
+          name
+        );
+
+        show("Profile saved successfully.");
+
+      } catch (e) {
+
+        console.error(e);
+        show(
+          "Profile save failed: " +
+          e.message
+        );
+      }
+    });
+
+
+    /* Gmail verification */
+
+    function updateVerification(user) {
+
+      const verified = user.emailVerified;
+
+      const status =
+        $("#emailVerificationStatus");
+
+      if (status) {
+        status.textContent =
+          verified
+            ? "✓ Gmail verified"
+            : "✗ Gmail not verified";
+
+        status.className =
+          verified
+            ? "verified"
+            : "not-verified";
+      }
+
+      if (verifyBtn) {
+        verifyBtn.style.display =
+          verified ? "none" : "";
+      }
+    }
+
+
+    if (verifyBtn) {
+
+      verifyBtn.onclick = async () => {
+
+        const user =
+          window.samAuth.currentUser;
+
+        if (!user) return;
+
+        try {
+
+          await user.sendEmailVerification();
+
+          show(
+            "Verification email sent to " +
+            user.email
+          );
+
+        } catch (e) {
+
+          show(e.message);
+        }
+      };
+    }
+
+
+    /* Profile logout */
+
+    if (profileLogout) {
+
+      profileLogout.onclick = async () => {
+
+        try {
+
+          await window.samAuth.signOut();
+
+          location.href = "/";
+
+        } catch (e) {
+
+          show(e.message);
+        }
+      };
+    }
+
+
+    window.samAuth.onAuthStateChanged(user => {
+
+      if (user) {
+        loadProfile();
+      }
+
     });
   }
 
@@ -116,34 +422,53 @@
   const loadNotes = $("#loadNotes");
 
   if (loadNotes) {
+
     const render = async () => {
+
+      const params =
+        new URLSearchParams();
+
+      const y =
+        $("#yearFilter")?.value || "";
+
+      const s =
+        $("#subjectFilter")?.value.trim() || "";
+
+      const u =
+        $("#unitFilter")?.value || "";
+
+      if (y) params.set("year", y);
+      if (s) params.set("subject", s);
+      if (u) params.set("unit", u);
+
       try {
-        const params = new URLSearchParams();
-
-        const y = $("#yearFilter")?.value || "";
-        const s = $("#subjectFilter")?.value.trim() || "";
-        const u = $("#unitFilter")?.value || "";
-
-        if (y) params.set("year", y);
-        if (s) params.set("subject", s);
-        if (u) params.set("unit", u);
 
         const data =
-          await fetch("/api/notes?" + params.toString()).then(r => r.json());
+          await fetch(
+            "/api/notes?" +
+            params.toString()
+          ).then(r => r.json());
 
         if (!notesGrid) return;
 
         notesGrid.innerHTML = "";
 
-        if (!data.notes.length) {
-          $("#notesEmpty")?.classList.remove("hidden");
+        if (!data.notes?.length) {
+
+          $("#notesEmpty")
+            ?.classList.remove("hidden");
+
           return;
         }
 
-        $("#notesEmpty")?.classList.add("hidden");
+        $("#notesEmpty")
+          ?.classList.add("hidden");
 
         data.notes.forEach(n => {
-          const card = document.createElement("article");
+
+          const card =
+            document.createElement("article");
+
           card.className = "note-card";
 
           card.innerHTML = `
@@ -162,8 +487,10 @@
               )}
             </p>
 
-            <a class="btn btn-soft"
-               href="/download/${encodeURIComponent(n.filename)}">
+            <a
+              class="btn btn-soft"
+              href="/download/${encodeURIComponent(n.filename)}"
+            >
               Download ↓
             </a>
           `;
@@ -172,6 +499,7 @@
         });
 
       } catch (e) {
+
         show("Could not load notes.");
       }
     };
@@ -181,13 +509,22 @@
   }
 
 
-  /* ================= QUIZ SUBJECTS ================= */
+  /* ================= QUIZ ================= */
 
-  const subjectSelect = $("#quizSubject");
-  const yearSelect = $("#quizYear");
-  const examSelect = $("#quizExam");
+  const subjectSelect =
+    $("#quizSubject");
+
+  const yearSelect =
+    $("#quizYear");
+
+  const examSelect =
+    $("#quizExam");
+
+  const countSelect =
+    $("#quizCount");
 
   const subjectMap = {
+
     "1": [
       "Engineering Mathematics-I",
       "Engineering Physics",
@@ -226,29 +563,47 @@
       "Distributed Systems",
       "Internet of Things",
       "Project / Major Project"
-    ],
-
-    "11": [
-      "Physics",
-      "Chemistry",
-      "Mathematics",
-      "Biology",
-      "Computer Science",
-      "English"
-    ],
-
-    "12": [
-      "Physics",
-      "Chemistry",
-      "Mathematics",
-      "Biology",
-      "Computer Science",
-      "English"
     ]
   };
 
 
-  const govtSubjects = {
+  const examSubjects = {
+
+    "JEE Mains": [
+      "Physics",
+      "Chemistry",
+      "Mathematics"
+    ],
+
+    "JEE Advance": [
+      "Physics",
+      "Chemistry",
+      "Mathematics"
+    ],
+
+    "NEET UG": [
+      "Physics",
+      "Chemistry",
+      "Biology"
+    ],
+
+    "NEET PG": [
+      "Medicine",
+      "Surgery",
+      "Pharmacology",
+      "Pathology"
+    ],
+
+    "GATE": [
+      "Engineering Mathematics",
+      "Programming",
+      "Data Structures",
+      "Algorithms",
+      "Computer Networks",
+      "Operating Systems",
+      "DBMS"
+    ],
+
     "SSC": [
       "Quantitative Aptitude",
       "Reasoning",
@@ -272,214 +627,228 @@
       "Current Affairs"
     ],
 
-    "NEET": [
-      "Physics",
-      "Chemistry",
-      "Biology"
-    ],
-
-    "JEE Mains": [
-      "Physics",
-      "Chemistry",
-      "Mathematics"
-    ],
-
-    "JEE Advanced": [
-      "Physics",
-      "Chemistry",
-      "Mathematics"
-    ],
-
-    "GATE": [
-      "Engineering Mathematics",
-      "Computer Science",
-      "Aptitude"
-    ],
-
     "Army": [
       "Mathematics",
       "Reasoning",
       "General Knowledge",
-      "General Science"
-    ],
-
-    "Other Government Exam": [
-      "Quantitative Aptitude",
-      "Reasoning",
-      "English",
-      "General Awareness",
-      "Computer"
+      "English"
     ]
   };
 
 
   function refreshQuizSubjects() {
+
     if (!subjectSelect) return;
 
-    const y = yearSelect?.value || "1";
-    const exam = examSelect?.value || "AKTU";
+    const y =
+      yearSelect?.value || "1";
+
+    const exam =
+      examSelect?.value || "AKTU";
 
     let list;
 
     if (exam === "AKTU") {
-      list = subjectMap[y] || [];
+      list =
+        subjectMap[y] || [];
     } else {
       list =
-        govtSubjects[exam] ||
-        subjectMap[y] ||
-        ["General Studies"];
+        examSubjects[exam] || [
+          "General Studies"
+        ];
     }
 
-    subjectSelect.innerHTML = list
-      .map(
+    subjectSelect.innerHTML =
+      list.map(
         s =>
           `<option value="${esc(s)}">${esc(s)}</option>`
-      )
-      .join("");
+      ).join("");
   }
 
-  yearSelect?.addEventListener("change", refreshQuizSubjects);
-  examSelect?.addEventListener("change", refreshQuizSubjects);
+
+  yearSelect?.addEventListener(
+    "change",
+    refreshQuizSubjects
+  );
+
+  examSelect?.addEventListener(
+    "change",
+    refreshQuizSubjects
+  );
 
   refreshQuizSubjects();
 
 
-  /* ================= QUIZ ================= */
+  /* ================= AI QUIZ ================= */
 
-  const gen = $("#generateQuiz");
+  const gen =
+    $("#generateQuiz");
 
   if (gen) {
+
     gen.onclick = async () => {
 
-      const area = $("#quizArea");
-
-      if (!area) return;
+      const area =
+        $("#quizArea");
 
       area.classList.remove("hidden");
 
       area.innerHTML = `
         <div class="card" style="padding:25px">
-          Generating a fresh quiz…
+          Generating fresh questions…
         </div>
       `;
 
-      const countElement =
-        $("#quizCount") ||
-        $("#questionCount");
-
-      const count = countElement
-        ? Number(countElement.value || 5)
-        : 5;
-
       const body = {
-        year: $("#quizYear")?.value || "1",
-        level: $("#quizLevel")?.value || "Beginner",
-        exam: $("#quizExam")?.value || "AKTU",
+
+        year:
+          $("#quizYear")?.value || "1",
+
+        level:
+          $("#quizLevel")?.value ||
+          "Beginner",
+
+        exam:
+          $("#quizExam")?.value ||
+          "AKTU",
+
         subject:
           $("#quizSubject")?.value ||
           "General Studies",
-        count: Math.min(Math.max(count, 3), 50)
+
+        count:
+          Number(
+            countSelect?.value || 5
+          )
       };
+
 
       try {
 
-        const res = await fetch("/api/ai/quiz", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(body)
-        });
+        const res =
+          await fetch(
+            "/api/ai/quiz",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
+              body:
+                JSON.stringify(body)
+            }
+          );
 
-        const data = await res.json();
+        const data =
+          await res.json();
 
-        if (!data.ok) {
-          throw new Error(data.error || "Quiz failed");
-        }
+        if (!data.ok)
+          throw new Error(
+            data.error ||
+            "Quiz failed"
+          );
 
-        const questions = data.questions || [];
-
-        if (!questions.length) {
-          throw new Error("No questions generated.");
-        }
+        area.innerHTML = "";
 
         let current = 0;
-        let score = 0;
-        let answered = 0;
-        let startTime = Date.now();
+        let answers = [];
 
-        function renderQuestion() {
+        const questions =
+          data.questions || [];
 
-          const q = questions[current];
+
+        function showQuestion() {
+
+          const q =
+            questions[current];
+
+          if (!q) {
+            finishQuiz();
+            return;
+          }
+
+          const options =
+            (q.options || [])
+              .map(
+                (o, j) =>
+                  `
+                  <button
+                    class="quiz-option"
+                    data-index="${j}"
+                  >
+                    ${esc(o)}
+                  </button>
+                  `
+              ).join("");
+
 
           area.innerHTML = `
+
             <article class="question-card">
 
               <div class="question-number">
-                QUESTION ${current + 1} / ${questions.length}
+                QUESTION ${current + 1}
+                / ${questions.length}
               </div>
 
-              <h3>${esc(q.question)}</h3>
+              <h3>
+                ${esc(q.question)}
+              </h3>
 
-              <div id="optionsArea">
-                ${(q.options || [])
-                  .map(
-                    (o, j) => `
-                      <label
-                        class="option"
-                        data-option="${j}"
-                        style="display:block;cursor:pointer;margin:10px 0"
-                      >
-                        <input
-                          type="radio"
-                          name="currentQuestion"
-                          value="${j}"
-                        >
-                        ${esc(o)}
-                      </label>
-                    `
-                  )
-                  .join("")}
+              <div class="quiz-options">
+                ${options}
               </div>
 
               <div
-                id="questionResult"
-                style="margin-top:15px"
+                id="quizExplanation"
+                style="
+                  margin-top:15px;
+                  display:none;
+                "
               ></div>
 
               <div
                 style="
                   display:flex;
                   gap:10px;
-                  flex-wrap:wrap;
                   margin-top:20px;
+                  flex-wrap:wrap;
                 "
               >
 
-                <button
-                  class="btn btn-soft"
-                  id="submitAnswer"
-                >
-                  Submit Answer
-                </button>
+                ${
+                  current > 0
+                    ? `<button
+                         id="prevQuestion"
+                         class="btn btn-soft"
+                       >
+                         Previous
+                       </button>`
+                    : ""
+                }
+
+                ${
+                  current <
+                  questions.length - 1
+                    ? `<button
+                         id="nextQuestion"
+                         class="btn btn-primary"
+                       >
+                         Next Question →
+                       </button>`
+                    : `<button
+                         id="finishQuestion"
+                         class="btn btn-primary"
+                       >
+                         Submit Test
+                       </button>`
+                }
 
                 <button
+                  id="submitEarly"
                   class="btn btn-soft"
-                  id="nextQuestion"
-                  style="display:none"
                 >
-                  Next Question →
-                </button>
-
-                <button
-                  class="btn btn-soft"
-                  id="finishQuiz"
-                  style="
-                    border-color:#ef4444;
-                    color:#ef4444;
-                  "
-                >
-                  Submit Test
+                  Submit Now
                 </button>
 
               </div>
@@ -487,165 +856,195 @@
             </article>
           `;
 
-          const submit = $("#submitAnswer");
-          const next = $("#nextQuestion");
-          const finish = $("#finishQuiz");
-          const result = $("#questionResult");
 
-          let submitted = false;
+          document
+            .querySelectorAll(
+              ".quiz-option"
+            )
+            .forEach(btn => {
 
-          submit.onclick = () => {
+              btn.onclick = () => {
 
-            if (submitted) return;
+                const selected =
+                  Number(
+                    btn.dataset.index
+                  );
 
-            const selected =
-              document.querySelector(
-                'input[name="currentQuestion"]:checked'
-              );
+                const correct =
+                  Number(q.answer);
 
-            if (!selected) {
-              show("Please select an answer first.");
-              return;
-            }
+                answers[current] =
+                  selected;
 
-            submitted = true;
-            answered++;
 
-            const selectedIndex =
-              Number(selected.value);
+                document
+                  .querySelectorAll(
+                    ".quiz-option"
+                  )
+                  .forEach(b => {
 
-            const correctIndex =
-              Number(q.answer);
+                    b.disabled = true;
 
-            const labels =
-              document.querySelectorAll(".option");
+                    const i =
+                      Number(
+                        b.dataset.index
+                      );
 
-            labels.forEach((label, index) => {
+                    if (i === correct) {
 
-              if (index === correctIndex) {
-                label.style.border =
-                  "2px solid #22c55e";
-                label.style.color =
-                  "#22c55e";
-              }
+                      b.style.background =
+                        "#16a34a";
 
-              if (
-                index === selectedIndex &&
-                selectedIndex !== correctIndex
-              ) {
-                label.style.border =
-                  "2px solid #ef4444";
-                label.style.color =
-                  "#ef4444";
-              }
+                      b.style.color =
+                        "white";
+
+                    } else if (
+                      i === selected
+                    ) {
+
+                      b.style.background =
+                        "#dc2626";
+
+                      b.style.color =
+                        "white";
+                    }
+                  });
+
+
+                const explanation =
+                  $("#quizExplanation");
+
+                if (explanation) {
+
+                  explanation.style.display =
+                    "block";
+
+                  explanation.innerHTML = `
+                    <strong>
+                      ${
+                        selected === correct
+                          ? "✓ Correct"
+                          : "✗ Wrong"
+                      }
+                    </strong>
+
+                    <p>
+                      Correct answer:
+                      ${esc(
+                        q.options?.[correct] ||
+                        ""
+                      )}
+                    </p>
+
+                    ${
+                      q.explanation
+                        ? `<p>${esc(q.explanation)}</p>`
+                        : ""
+                    }
+                  `;
+                }
+              };
             });
 
-            if (selectedIndex === correctIndex) {
-              score++;
 
-              result.innerHTML = `
-                <div style="color:#22c55e;font-weight:800">
-                  ✓ Correct Answer
-                </div>
-              `;
-            } else {
+          $("#nextQuestion")?.addEventListener(
+            "click",
+            () => {
 
-              result.innerHTML = `
-                <div style="color:#ef4444;font-weight:800">
-                  ✕ Wrong Answer
-                </div>
-
-                <div style="margin-top:8px">
-                  <b>Correct Answer:</b>
-                  ${esc(q.options[correctIndex] || "")}
-                </div>
-              `;
-            }
-
-            if (q.explanation) {
-              result.innerHTML += `
-                <div
-                  style="
-                    margin-top:12px;
-                    line-height:1.7;
-                  "
-                >
-                  <b>Detailed Explanation:</b><br>
-                  ${esc(q.explanation)}
-                </div>
-              `;
-            }
-
-            submit.style.display = "none";
-
-            if (current < questions.length - 1) {
-              next.style.display = "inline-block";
-            } else {
-              finish.textContent = "View Result";
-            }
-          };
-
-
-          next.onclick = () => {
-
-            if (current < questions.length - 1) {
               current++;
-              renderQuestion();
+
+              showQuestion();
             }
-          };
+          );
 
 
-          finish.onclick = () => {
-            showResult();
-          };
+          $("#prevQuestion")?.addEventListener(
+            "click",
+            () => {
+
+              current--;
+
+              showQuestion();
+            }
+          );
+
+
+          $("#submitEarly")?.addEventListener(
+            "click",
+            finishQuiz
+          );
+
+
+          $("#finishQuestion")?.addEventListener(
+            "click",
+            finishQuiz
+          );
         }
 
 
-        function showResult() {
+        function finishQuiz() {
 
-          const totalTime =
-            Math.round(
-              (Date.now() - startTime) / 1000
-            );
+          let correct = 0;
+
+          questions.forEach(
+            (q, i) => {
+
+              if (
+                answers[i] !== undefined &&
+                Number(answers[i]) ===
+                Number(q.answer)
+              ) {
+                correct++;
+              }
+            }
+          );
+
+          const attempted =
+            answers.filter(
+              x => x !== undefined
+            ).length;
+
+          const total =
+            questions.length;
 
           const accuracy =
-            answered === 0
-              ? 0
-              : Math.round(
-                  (score / answered) * 100
-                );
+            attempted
+              ? Math.round(
+                  (correct / attempted) *
+                  100
+                )
+              : 0;
+
 
           area.innerHTML = `
+
             <article
               class="card"
-              style="padding:25px"
+              style="padding:30px"
             >
 
-              <h2>Test Result</h2>
+              <h2>Test Submitted 🎯</h2>
 
               <p>
-                <b>Score:</b>
-                ${score} / ${questions.length}
+                Score:
+                <strong>
+                  ${correct}/${total}
+                </strong>
               </p>
 
               <p>
-                <b>Attempted:</b>
-                ${answered} / ${questions.length}
+                Attempted:
+                ${attempted}/${total}
               </p>
 
               <p>
-                <b>Accuracy:</b>
+                Accuracy:
                 ${accuracy}%
               </p>
 
-              <p>
-                <b>Time Used:</b>
-                ${formatTime(totalTime)}
-              </p>
-
               <button
-                class="btn btn-soft"
-                id="restartQuiz"
+                id="newQuiz"
+                class="btn btn-primary"
               >
                 Take Another Test
               </button>
@@ -653,13 +1052,12 @@
             </article>
           `;
 
-          $("#restartQuiz").onclick = () => {
-            gen.click();
-          };
+          $("#newQuiz").onclick =
+            () => gen.click();
         }
 
 
-        renderQuestion();
+        showQuestion();
 
       } catch (e) {
 
@@ -679,12 +1077,267 @@
   }
 
 
-  /* ================= DOUBT ================= */
+  /* ================= AI DOUBT ================= */
 
-  const solve = $("#solveDoubt");
+  const solve =
+    $("#solveDoubt");
 
   if (solve) {
 
     solve.onclick = async () => {
 
-      const
+      const text =
+        $("#doubtText")?.value.trim();
+
+      if (!text) {
+
+        show(
+          "Please enter your doubt."
+        );
+
+        return;
+      }
+
+      const card =
+        $("#answerCard");
+
+      card.innerHTML = `
+        <div class="answer-placeholder">
+          <div class="big-ai">AI</div>
+          <h2>Solving…</h2>
+          <p>Please wait.</p>
+        </div>
+      `;
+
+
+      try {
+
+        const res =
+          await fetch(
+            "/api/ai/doubt",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
+              body:
+                JSON.stringify({
+                  doubt: text,
+
+                  context:
+                    $("#doubtContext")
+                      ?.value.trim() || ""
+                })
+            }
+          );
+
+
+        const data =
+          await res.json();
+
+        if (!data.ok)
+          throw new Error(
+            data.error ||
+            "Could not solve"
+          );
+
+
+        card.innerHTML = `
+          <div class="answer-content">
+
+            <div class="ai-badge">
+              AI
+            </div>
+
+            <h2>
+              Solution
+            </h2>
+
+            <div
+              style="
+                white-space:pre-wrap;
+                margin-top:15px;
+                line-height:1.75;
+                color:var(--text);
+              "
+            >
+              ${esc(data.answer)}
+            </div>
+
+          </div>
+        `;
+
+      } catch (e) {
+
+        card.innerHTML = `
+          <div class="answer-placeholder">
+            <h2>
+              Could not solve
+            </h2>
+
+            <p>
+              ${esc(e.message)}
+            </p>
+          </div>
+        `;
+      }
+    };
+  }
+
+
+  /* ================= ADMIN ================= */
+
+  const gate =
+    $("#adminGate");
+
+  const panel =
+    $("#adminPanel");
+
+  if (gate && panel) {
+
+    (async () => {
+
+      try {
+
+        const res =
+          await authFetch(
+            "/api/admin/status"
+          );
+
+        if (res.ok) {
+
+          gate.classList.add(
+            "hidden"
+          );
+
+          panel.classList.remove(
+            "hidden"
+          );
+
+        } else {
+
+          const d =
+            await res.json()
+              .catch(() => ({}));
+
+          $("#adminStatus").textContent =
+            d.error ||
+            "Developer login required.";
+        }
+
+      } catch (e) {
+
+        $("#adminStatus").textContent =
+          "Login first, then open this page again.";
+      }
+
+    })();
+
+
+    $("#batchForm")
+      ?.addEventListener(
+        "submit",
+        async e => {
+
+          e.preventDefault();
+
+          const f =
+            new FormData(e.target);
+
+          const res =
+            await authFetch(
+              "/api/admin/batches",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type":
+                    "application/json"
+                },
+                body:
+                  JSON.stringify(
+                    Object.fromEntries(
+                      f.entries()
+                    )
+                  )
+              }
+            );
+
+          const d =
+            await res.json();
+
+          show(
+            d.ok
+              ? "Batch created."
+              : d.error ||
+                "Could not create batch."
+          );
+
+          if (d.ok)
+            e.target.reset();
+        }
+      );
+
+
+    $("#noteForm")
+      ?.addEventListener(
+        "submit",
+        async e => {
+
+          e.preventDefault();
+
+          const res =
+            await authFetch(
+              "/api/admin/notes",
+              {
+                method: "POST",
+                body:
+                  new FormData(e.target)
+              }
+            );
+
+          const d =
+            await res.json();
+
+          show(
+            d.ok
+              ? "Content uploaded."
+              : d.error ||
+                "Upload failed."
+          );
+
+          if (d.ok)
+            e.target.reset();
+        }
+      );
+  }
+
+
+  /* ================= HELPERS ================= */
+
+  function esc(v) {
+
+    return String(v ?? "")
+      .replace(
+        /[&<>"']/g,
+        m =>
+          ({
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#039;"
+          }[m])
+      );
+  }
+
+
+  function show(msg) {
+
+    if (window.showToast)
+      window.showToast(msg);
+    else
+      alert(msg);
+  }
+
+})();

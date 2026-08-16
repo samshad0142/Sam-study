@@ -7,23 +7,23 @@
 <section class="page-title">
   <span class="eyebrow sky">AI QUIZ ENGINE</span>
 
-  <h1>Build a fresh quiz.</h1>
+  <h1>Build your test.</h1>
 
   <p>
-    Select your education, exam and subject.
-    Generate a fresh question set and solve one question at a time.
+    Choose your course, exam, subject, difficulty and
+    number of questions.
   </p>
 </section>
 
 
-<!-- QUIZ BUILDER -->
+<!-- ================= QUIZ BUILDER ================= -->
 
 <div class="quiz-builder card">
 
   <!-- COURSE -->
 
   <label>
-    Course / Class
+    Course / Education
 
     <select id="quizCourse">
 
@@ -33,10 +33,9 @@
       <option value="M.Tech">M.Tech</option>
       <option value="B.Pharm">B.Pharm</option>
       <option value="B.Sc">B.Sc</option>
-      <option value="Class 12">Class 12</option>
-      <option value="Class 11">Class 11</option>
 
     </select>
+
   </label>
 
 
@@ -47,86 +46,52 @@
 
     <select id="quizYear">
 
-      <option value="1">
-        1st Year
-      </option>
+      <option value="1">1st Year</option>
+      <option value="2">2nd Year</option>
+      <option value="3">3rd Year</option>
+      <option value="4">4th Year</option>
 
-      <option value="2">
-        2nd Year
-      </option>
-
-      <option value="3">
-        3rd Year
-      </option>
-
-      <option value="4">
-        4th Year
-      </option>
-
-      <option value="12">
-        Class 12
-      </option>
-
-      <option value="11">
-        Class 11
-      </option>
+      <option value="11">Class 11</option>
+      <option value="12">Class 12</option>
 
     </select>
+
   </label>
 
 
   <!-- EXAM -->
 
   <label>
-    Exam / Preparation
+    Exam
 
     <select id="quizExam">
 
-      <option value="AKTU">
-        AKTU
-      </option>
+      <option value="AKTU">AKTU</option>
 
-      <option value="GATE">
-        GATE
-      </option>
+      <option value="GATE">GATE</option>
 
-      <option value="SSC">
-        SSC
-      </option>
+      <option value="SSC">SSC</option>
 
-      <option value="Railway">
-        Railway
-      </option>
+      <option value="Railway">Railway</option>
 
-      <option value="UPSC">
-        UPSC
-      </option>
+      <option value="UPSC">UPSC</option>
 
-      <option value="Army">
-        Army
-      </option>
+      <option value="Army">Army</option>
 
-      <option value="NEET UG">
-        NEET UG
-      </option>
+      <option value="NEET UG">NEET UG</option>
 
-      <option value="NEET PG">
-        NEET PG
-      </option>
+      <option value="NEET PG">NEET PG</option>
 
-      <option value="JEE Mains">
-        JEE Mains
-      </option>
+      <option value="JEE Mains">JEE Mains</option>
 
-      <option value="JEE Advanced">
-        JEE Advanced
-      </option>
+      <option value="JEE Advanced">JEE Advanced</option>
 
       <option value="Other Government Exam">
         Other Government Exam
       </option>
 
     </select>
+
   </label>
 
 
@@ -136,18 +101,20 @@
     Subject
 
     <select id="quizSubject">
+
       <option value="">
         Select subject
       </option>
+
     </select>
 
   </label>
 
 
-  <!-- LEVEL -->
+  <!-- DIFFICULTY -->
 
   <label>
-    Question Level
+    Difficulty
 
     <select id="quizLevel">
 
@@ -164,10 +131,15 @@
       </option>
 
       <option value="Exam Level">
-        Real Exam Level
+        Exam Level
+      </option>
+
+      <option value="PYQ Style">
+        PYQ Style
       </option>
 
     </select>
+
   </label>
 
 
@@ -176,27 +148,17 @@
   <label>
     Number of Questions
 
-    <select id="quizCount">
+    <select id="countSelect">
 
-      <option value="5">
-        5 Questions
-      </option>
+      <option value="5">5 Questions</option>
 
-      <option value="10">
-        10 Questions
-      </option>
+      <option value="10">10 Questions</option>
 
-      <option value="20">
-        20 Questions
-      </option>
+      <option value="20">20 Questions</option>
 
-      <option value="30">
-        30 Questions
-      </option>
+      <option value="30">30 Questions</option>
 
-      <option value="50">
-        50 Questions
-      </option>
+      <option value="50">50 Questions</option>
 
     </select>
 
@@ -207,41 +169,53 @@
 
   <button
     id="generateQuiz"
-    class="btn btn-primary wide"
     type="button"
-  >
-    Generate Fresh Quiz ✦
+    class="btn btn-primary wide">
+
+    Generate Test ✦
+
   </button>
 
 </div>
 
 
-<!-- QUIZ AREA -->
+<!-- ================= QUIZ AREA ================= -->
 
 <div
   id="quizArea"
-  class="quiz-area hidden"
-></div>
+  class="quiz-area hidden">
+</div>
+
+
+<!-- ================= RESULT AREA ================= -->
+
+<div
+  id="quizResult"
+  class="quiz-result hidden">
+</div>
 
 
 <style>
 
-/* =====================================
-   QUIZ BUILDER
-   ===================================== */
+/* ================= BUILDER ================= */
 
 .quiz-builder {
+
+  max-width: 850px;
+
+  margin: 30px auto;
+
+  padding: 28px;
 
   display: grid;
 
   grid-template-columns:
     repeat(2, minmax(0, 1fr));
 
-  gap: 18px;
-
-  margin-bottom: 25px;
+  gap: 20px;
 
 }
+
 
 .quiz-builder label {
 
@@ -255,6 +229,7 @@
 
 }
 
+
 .quiz-builder select {
 
   width: 100%;
@@ -263,7 +238,8 @@
 
   border-radius: 13px;
 
-  border: 1px solid
+  border:
+    1px solid
     rgba(100,200,255,.25);
 
   background:
@@ -271,11 +247,10 @@
 
   color: inherit;
 
-  font-size: 15px;
-
-  box-sizing: border-box;
+  font-size: 16px;
 
 }
+
 
 .quiz-builder select option {
 
@@ -284,26 +259,56 @@
 }
 
 
-/* GENERATE BUTTON */
-
 .quiz-builder .wide {
 
   grid-column: 1 / -1;
 
-  width: 100%;
-
 }
 
 
-/* =====================================
-   QUESTION
-   ===================================== */
+/* ================= QUIZ ================= */
 
 .quiz-area {
 
-  margin-top: 25px;
+  max-width: 850px;
+
+  margin: 30px auto;
 
 }
+
+
+.quiz-top {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  gap: 15px;
+
+  margin-bottom: 20px;
+
+  padding: 18px;
+
+  border-radius: 18px;
+
+  background:
+    rgba(10,35,55,.8);
+
+  border:
+    1px solid
+    rgba(80,190,255,.25);
+
+}
+
+
+.question-progress {
+
+  font-weight: 900;
+
+}
+
 
 .question-card {
 
@@ -312,92 +317,66 @@
   border-radius: 22px;
 
   background:
-    rgba(5,25,42,.92);
+    rgba(5,25,42,.94);
 
-  border: 1px solid
+  border:
+    1px solid
     rgba(80,190,255,.25);
 
   box-shadow:
-    0 15px 45px rgba(0,0,0,.18);
+    0 15px 45px
+    rgba(0,0,0,.2);
 
 }
 
+
 .question-number {
 
-  display: inline-block;
-
-  padding: 7px 12px;
-
-  border-radius: 9px;
-
-  background:
-    rgba(21,158,219,.15);
-
   color: #55c9ff;
-
-  font-size: 12px;
 
   font-weight: 900;
 
   letter-spacing: 1px;
 
-  margin-bottom: 15px;
+  font-size: 13px;
 
-}
-
-.question-card h3 {
-
-  font-size: 21px;
-
-  line-height: 1.6;
-
-  margin: 5px 0 22px;
+  margin-bottom: 10px;
 
 }
 
 
-/* =====================================
-   OPTIONS
-   ===================================== */
-
-.quiz-options {
-
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 12px;
-
-}
-
-.quiz-option {
-
-  width: 100%;
-
-  padding: 15px 17px;
-
-  text-align: left;
-
-  border-radius: 13px;
-
-  border: 1px solid
-    rgba(100,200,255,.22);
-
-  background:
-    rgba(10,35,55,.65);
-
-  color: inherit;
-
-  cursor: pointer;
-
-  font-size: 15px;
+.question-card h2 {
 
   line-height: 1.5;
 
-  transition:
-    .2s ease;
+  margin-bottom: 25px;
 
 }
+
+
+.quiz-option {
+
+  display: block;
+
+  padding: 16px;
+
+  margin: 12px 0;
+
+  border-radius: 14px;
+
+  border:
+    1px solid
+    rgba(120,200,255,.2);
+
+  background:
+    rgba(20,50,70,.55);
+
+  cursor: pointer;
+
+  transition: .2s;
+
+}
+
 
 .quiz-option:hover {
 
@@ -409,64 +388,186 @@
 
 }
 
-.quiz-option:disabled {
 
-  cursor: default;
+.quiz-option input {
+
+  margin-right: 10px;
 
 }
 
 
-/* =====================================
-   CORRECT / WRONG
-   ===================================== */
+/* ================= ANSWER COLORS ================= */
 
-.quiz-correct {
+.quiz-option.correct {
 
   background:
-    #16a34a !important;
+    rgba(34,197,94,.18);
+
+  border:
+    2px solid
+    #22c55e;
+
+}
+
+
+.quiz-option.wrong {
+
+  background:
+    rgba(239,68,68,.18);
+
+  border:
+    2px solid
+    #ef4444;
+
+}
+
+
+.correct-text {
 
   color:
-    white !important;
+    #35d07f;
 
-  border-color:
-    #16a34a !important;
+  font-weight:
+    800;
 
 }
 
-.quiz-wrong {
 
-  background:
-    #dc2626 !important;
+.wrong-text {
 
   color:
-    white !important;
+    #ff5964;
 
-  border-color:
-    #dc2626 !important;
+  font-weight:
+    800;
 
 }
 
 
-/* =====================================
-   EXPLANATION
-   ===================================== */
+/* ================= CONTROLS ================= */
 
-.quiz-explanation {
+.quiz-controls {
 
-  margin-top: 18px;
+  display: flex;
 
-  padding: 17px;
+  justify-content: space-between;
 
-  border-radius: 14px;
+  gap: 12px;
+
+  margin-top: 25px;
+
+  flex-wrap: wrap;
+
+}
+
+
+.quiz-controls button {
+
+  min-width: 130px;
+
+}
+
+
+.next-question {
 
   background:
-    rgba(255,255,255,.05);
+    #159edb;
+
+  color: white;
+
+  border: 0;
+
+  padding: 13px 22px;
+
+  border-radius: 12px;
+
+  font-weight: 800;
+
+}
+
+
+.submit-test {
+
+  background:
+    transparent;
+
+  color:
+    #ff5964;
+
+  border:
+    1px solid
+    #ff5964;
+
+  padding: 13px 22px;
+
+  border-radius: 12px;
+
+  font-weight: 800;
+
+}
+
+
+.submit-test:hover {
+
+  background:
+    #ff5964;
+
+  color: white;
+
+}
+
+
+/* ================= EXPLANATION ================= */
+
+.answer-explanation {
+
+  margin-top: 22px;
+
+  padding: 18px;
+
+  border-radius: 15px;
+
+  background:
+    rgba(50,100,130,.2);
+
+  border-left:
+    4px solid
+    #55c9ff;
 
   line-height: 1.7;
 
 }
 
-.quiz-explanation strong {
+
+/* ================= RESULT ================= */
+
+.quiz-result {
+
+  max-width: 850px;
+
+  margin: 30px auto;
+
+  padding: 30px;
+
+  text-align: center;
+
+  border-radius: 24px;
+
+  background:
+    rgba(5,25,42,.94);
+
+  border:
+    1px solid
+    rgba(80,190,255,.3);
+
+}
+
+
+.result-score {
+
+  font-size: 48px;
+
+  font-weight: 900;
 
   color:
     #55c9ff;
@@ -474,51 +575,24 @@
 }
 
 
-/* =====================================
-   RESULT
-   ===================================== */
+.result-stat {
 
-.quiz-result {
+  margin: 8px;
 
-  padding: 30px;
-
-  text-align: center;
-
-}
-
-.quiz-result h2 {
-
-  margin-bottom: 20px;
-
-}
-
-.quiz-result-stat {
-
-  display: inline-block;
-
-  min-width: 120px;
-
-  margin: 7px;
-
-  padding: 15px;
-
-  border-radius: 14px;
-
-  background:
-    rgba(255,255,255,.05);
+  font-size: 17px;
 
 }
 
 
-/* =====================================
-   MOBILE
-   ===================================== */
+/* ================= MOBILE ================= */
 
-@media (max-width: 700px) {
+@media(max-width:650px) {
 
   .quiz-builder {
 
     grid-template-columns: 1fr;
+
+    padding: 20px;
 
   }
 
@@ -534,9 +608,23 @@
 
   }
 
-  .question-card h3 {
+  .quiz-top {
 
-    font-size: 18px;
+    flex-direction: column;
+
+    align-items: flex-start;
+
+  }
+
+  .quiz-controls {
+
+    flex-direction: column;
+
+  }
+
+  .quiz-controls button {
+
+    width: 100%;
 
   }
 

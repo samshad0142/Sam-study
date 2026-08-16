@@ -1,0 +1,23 @@
+{
+  "version": "final-light-mode-contrast",
+  "checked": [
+    "HTML parse",
+    "Jinja template parse",
+    "JavaScript syntax",
+    "Python syntax"
+  ],
+  "preserved": [
+    "original dark palette",
+    "3-D logo",
+    "mobile bottom navigation",
+    "modular templates"
+  ],
+  "fixed": [
+    "light-mode text visibility",
+    "batch year badges",
+    "forms/selects",
+    "navigation contrast",
+    "modal contrast",
+    "early theme initialization"
+  ]
+}

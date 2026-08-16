@@ -1,13 +1,547 @@
 {% extends "base.html" %}
+
 {% block title %}Smart Quiz • SamStudy{% endblock %}
+
 {% block content %}
-<section class="page-title"><span class="eyebrow sky">AI QUIZ ENGINE</span><h1>Build a fresh quiz.</h1><p>Select class, level, exam and the exact subject. Every generation is a new question set.</p></section>
+
+<section class="page-title">
+  <span class="eyebrow sky">AI QUIZ ENGINE</span>
+
+  <h1>Build a fresh quiz.</h1>
+
+  <p>
+    Select your education, exam and subject.
+    Generate a fresh question set and solve one question at a time.
+  </p>
+</section>
+
+
+<!-- QUIZ BUILDER -->
+
 <div class="quiz-builder card">
-  <label>Class / Year<select id="quizYear"><option value="1">B.Tech 1st Year</option><option value="2">B.Tech 2nd Year</option><option value="3">B.Tech 3rd Year</option><option value="4">B.Tech 4th Year</option><option value="12">Class 12</option><option value="11">Class 11</option></select></label>
-  <label>Level<select id="quizLevel"><option>Beginner</option><option>Intermediate</option><option>Advanced</option><option>JEE Main</option><option>JEE Advanced</option></select></label>
-  <label>Exam<select id="quizExam"><option>AKTU</option><option>JEE Main</option><option>JEE Advanced</option><option>SSC</option><option>UPSC</option><option>NEET</option><option>Other Government Exam</option></select></label>
-  <label>Subject<select id="quizSubject"></select></label>
-  <button id="generateQuiz" class="btn btn-primary wide">Generate Fresh Quiz ✦</button>
+
+  <!-- COURSE -->
+
+  <label>
+    Course / Class
+
+    <select id="quizCourse">
+
+      <option value="B.Tech">B.Tech</option>
+      <option value="BCA">BCA</option>
+      <option value="MCA">MCA</option>
+      <option value="M.Tech">M.Tech</option>
+      <option value="B.Pharm">B.Pharm</option>
+      <option value="B.Sc">B.Sc</option>
+      <option value="Class 12">Class 12</option>
+      <option value="Class 11">Class 11</option>
+
+    </select>
+  </label>
+
+
+  <!-- YEAR -->
+
+  <label>
+    Year / Class
+
+    <select id="quizYear">
+
+      <option value="1">
+        1st Year
+      </option>
+
+      <option value="2">
+        2nd Year
+      </option>
+
+      <option value="3">
+        3rd Year
+      </option>
+
+      <option value="4">
+        4th Year
+      </option>
+
+      <option value="12">
+        Class 12
+      </option>
+
+      <option value="11">
+        Class 11
+      </option>
+
+    </select>
+  </label>
+
+
+  <!-- EXAM -->
+
+  <label>
+    Exam / Preparation
+
+    <select id="quizExam">
+
+      <option value="AKTU">
+        AKTU
+      </option>
+
+      <option value="GATE">
+        GATE
+      </option>
+
+      <option value="SSC">
+        SSC
+      </option>
+
+      <option value="Railway">
+        Railway
+      </option>
+
+      <option value="UPSC">
+        UPSC
+      </option>
+
+      <option value="Army">
+        Army
+      </option>
+
+      <option value="NEET UG">
+        NEET UG
+      </option>
+
+      <option value="NEET PG">
+        NEET PG
+      </option>
+
+      <option value="JEE Mains">
+        JEE Mains
+      </option>
+
+      <option value="JEE Advanced">
+        JEE Advanced
+      </option>
+
+      <option value="Other Government Exam">
+        Other Government Exam
+      </option>
+
+    </select>
+  </label>
+
+
+  <!-- SUBJECT -->
+
+  <label>
+    Subject
+
+    <select id="quizSubject">
+      <option value="">
+        Select subject
+      </option>
+    </select>
+
+  </label>
+
+
+  <!-- LEVEL -->
+
+  <label>
+    Question Level
+
+    <select id="quizLevel">
+
+      <option value="Beginner">
+        Beginner
+      </option>
+
+      <option value="Intermediate">
+        Intermediate
+      </option>
+
+      <option value="Advanced">
+        Advanced
+      </option>
+
+      <option value="Exam Level">
+        Real Exam Level
+      </option>
+
+    </select>
+  </label>
+
+
+  <!-- QUESTION COUNT -->
+
+  <label>
+    Number of Questions
+
+    <select id="quizCount">
+
+      <option value="5">
+        5 Questions
+      </option>
+
+      <option value="10">
+        10 Questions
+      </option>
+
+      <option value="20">
+        20 Questions
+      </option>
+
+      <option value="30">
+        30 Questions
+      </option>
+
+      <option value="50">
+        50 Questions
+      </option>
+
+    </select>
+
+  </label>
+
+
+  <!-- GENERATE -->
+
+  <button
+    id="generateQuiz"
+    class="btn btn-primary wide"
+    type="button"
+  >
+    Generate Fresh Quiz ✦
+  </button>
+
 </div>
-<div id="quizArea" class="quiz-area hidden"></div>
+
+
+<!-- QUIZ AREA -->
+
+<div
+  id="quizArea"
+  class="quiz-area hidden"
+></div>
+
+
+<style>
+
+/* =====================================
+   QUIZ BUILDER
+   ===================================== */
+
+.quiz-builder {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 18px;
+
+  margin-bottom: 25px;
+
+}
+
+.quiz-builder label {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+
+  font-weight: 800;
+
+}
+
+.quiz-builder select {
+
+  width: 100%;
+
+  padding: 14px;
+
+  border-radius: 13px;
+
+  border: 1px solid
+    rgba(100,200,255,.25);
+
+  background:
+    rgba(10,35,55,.8);
+
+  color: inherit;
+
+  font-size: 15px;
+
+  box-sizing: border-box;
+
+}
+
+.quiz-builder select option {
+
+  color: black;
+
+}
+
+
+/* GENERATE BUTTON */
+
+.quiz-builder .wide {
+
+  grid-column: 1 / -1;
+
+  width: 100%;
+
+}
+
+
+/* =====================================
+   QUESTION
+   ===================================== */
+
+.quiz-area {
+
+  margin-top: 25px;
+
+}
+
+.question-card {
+
+  padding: 28px;
+
+  border-radius: 22px;
+
+  background:
+    rgba(5,25,42,.92);
+
+  border: 1px solid
+    rgba(80,190,255,.25);
+
+  box-shadow:
+    0 15px 45px rgba(0,0,0,.18);
+
+}
+
+.question-number {
+
+  display: inline-block;
+
+  padding: 7px 12px;
+
+  border-radius: 9px;
+
+  background:
+    rgba(21,158,219,.15);
+
+  color: #55c9ff;
+
+  font-size: 12px;
+
+  font-weight: 900;
+
+  letter-spacing: 1px;
+
+  margin-bottom: 15px;
+
+}
+
+.question-card h3 {
+
+  font-size: 21px;
+
+  line-height: 1.6;
+
+  margin: 5px 0 22px;
+
+}
+
+
+/* =====================================
+   OPTIONS
+   ===================================== */
+
+.quiz-options {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 12px;
+
+}
+
+.quiz-option {
+
+  width: 100%;
+
+  padding: 15px 17px;
+
+  text-align: left;
+
+  border-radius: 13px;
+
+  border: 1px solid
+    rgba(100,200,255,.22);
+
+  background:
+    rgba(10,35,55,.65);
+
+  color: inherit;
+
+  cursor: pointer;
+
+  font-size: 15px;
+
+  line-height: 1.5;
+
+  transition:
+    .2s ease;
+
+}
+
+.quiz-option:hover {
+
+  border-color:
+    #55c9ff;
+
+  transform:
+    translateY(-1px);
+
+}
+
+.quiz-option:disabled {
+
+  cursor: default;
+
+}
+
+
+/* =====================================
+   CORRECT / WRONG
+   ===================================== */
+
+.quiz-correct {
+
+  background:
+    #16a34a !important;
+
+  color:
+    white !important;
+
+  border-color:
+    #16a34a !important;
+
+}
+
+.quiz-wrong {
+
+  background:
+    #dc2626 !important;
+
+  color:
+    white !important;
+
+  border-color:
+    #dc2626 !important;
+
+}
+
+
+/* =====================================
+   EXPLANATION
+   ===================================== */
+
+.quiz-explanation {
+
+  margin-top: 18px;
+
+  padding: 17px;
+
+  border-radius: 14px;
+
+  background:
+    rgba(255,255,255,.05);
+
+  line-height: 1.7;
+
+}
+
+.quiz-explanation strong {
+
+  color:
+    #55c9ff;
+
+}
+
+
+/* =====================================
+   RESULT
+   ===================================== */
+
+.quiz-result {
+
+  padding: 30px;
+
+  text-align: center;
+
+}
+
+.quiz-result h2 {
+
+  margin-bottom: 20px;
+
+}
+
+.quiz-result-stat {
+
+  display: inline-block;
+
+  min-width: 120px;
+
+  margin: 7px;
+
+  padding: 15px;
+
+  border-radius: 14px;
+
+  background:
+    rgba(255,255,255,.05);
+
+}
+
+
+/* =====================================
+   MOBILE
+   ===================================== */
+
+@media (max-width: 700px) {
+
+  .quiz-builder {
+
+    grid-template-columns: 1fr;
+
+  }
+
+  .quiz-builder .wide {
+
+    grid-column: auto;
+
+  }
+
+  .question-card {
+
+    padding: 20px;
+
+  }
+
+  .question-card h3 {
+
+    font-size: 18px;
+
+  }
+
+}
+
+</style>
+
 {% endblock %}

@@ -1,0 +1,692 @@
+{% extends "base.html" %}
+
+{% block title %}Profile • SamStudy{% endblock %}
+
+{% block content %}
+
+<section class="profile-page">
+
+  <div class="profile-card">
+
+    <div class="profile-head">
+      <div>
+        <span class="profile-label">SAMSTUDY PROFILE</span>
+        <h1>My Profile</h1>
+        <p>Manage your student information</p>
+      </div>
+    </div>
+
+
+    <!-- PHOTO -->
+
+    <div class="profile-photo-section">
+
+      <div class="profile-photo" id="profilePhoto">
+        👤
+      </div>
+
+      <label class="photo-btn">
+        📷 Change Photo
+        <input
+          type="file"
+          id="photoInput"
+          accept="image/*"
+          capture="user"
+          hidden
+        >
+      </label>
+
+      <small>
+        Choose a photo from gallery or camera
+      </small>
+
+    </div>
+
+
+    <!-- NAME -->
+
+    <div class="profile-form">
+
+      <label>Student Name</label>
+
+      <input
+        id="studentName"
+        type="text"
+        placeholder="Enter your name"
+      >
+
+
+      <!-- COURSE -->
+
+      <label>Course / Education</label>
+
+      <select id="course">
+
+        <option value="">
+          Select course
+        </option>
+
+        <option>B.Tech</option>
+        <option>BCA</option>
+        <option>MCA</option>
+        <option>M.Tech</option>
+        <option>B.Pharm</option>
+        <option>B.Sc</option>
+        <option>Other</option>
+
+      </select>
+
+
+      <!-- BRANCH -->
+
+      <label>Branch / Stream</label>
+
+      <input
+        id="branch"
+        type="text"
+        placeholder="Example: Computer Science & Engineering"
+      >
+
+
+      <!-- EXAM -->
+
+      <label>
+        Government / Competitive Exam
+        <span>(Optional)</span>
+      </label>
+
+      <select id="exam">
+
+        <option value="">
+          None / Not preparing
+        </option>
+
+        <option>GATE</option>
+        <option>SSC</option>
+        <option>Railway</option>
+        <option>UPSC</option>
+        <option>Army</option>
+        <option>NEET UG</option>
+        <option>NEET PG</option>
+        <option>JEE Mains</option>
+        <option>JEE Advanced</option>
+        <option>Other</option>
+
+      </select>
+
+
+      <!-- EMAIL -->
+
+      <label>Gmail</label>
+
+      <div class="email-box">
+
+        <input
+          id="profileEmail"
+          type="email"
+          readonly
+        >
+
+        <span id="verificationStatus">
+          Checking...
+        </span>
+
+      </div>
+
+
+      <!-- SAVE -->
+
+      <button
+        type="button"
+        id="saveProfile"
+        class="save-profile-btn"
+      >
+        Save Profile
+      </button>
+
+      <p
+        id="profileMessage"
+        class="profile-message"
+      ></p>
+
+    </div>
+
+
+    <!-- LOGOUT -->
+
+    <div class="logout-section">
+
+      <button
+        type="button"
+        id="profileLogout"
+        class="logout-red"
+      >
+        Logout
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<style>
+
+.profile-page {
+  max-width: 720px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.profile-card {
+  padding: 30px;
+  border: 1px solid rgba(80,190,255,.3);
+  border-radius: 28px;
+  background: rgba(5,25,42,.9);
+  box-shadow: 0 20px 60px rgba(0,0,0,.25);
+}
+
+.profile-head h1 {
+  margin: 8px 0;
+  font-size: 38px;
+}
+
+.profile-head p {
+  margin: 0 0 25px;
+  opacity: .75;
+}
+
+.profile-label {
+  color: #55c9ff;
+  font-weight: 800;
+  letter-spacing: 2px;
+  font-size: 13px;
+}
+
+
+/* PHOTO */
+
+.profile-photo-section {
+  text-align: center;
+  margin: 25px 0 35px;
+}
+
+.profile-photo {
+  width: 125px;
+  height: 125px;
+  margin: auto;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  font-size: 55px;
+  background: linear-gradient(
+    135deg,
+    #119bd7,
+    #6848e8
+  );
+  border: 4px solid rgba(255,255,255,.15);
+}
+
+.profile-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photo-btn {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 11px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  background: #149fdf;
+  color: white;
+  font-weight: 700;
+}
+
+.profile-photo-section small {
+  display: block;
+  margin-top: 8px;
+  opacity: .6;
+}
+
+
+/* FORM */
+
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.profile-form label {
+  margin-top: 12px;
+  font-weight: 700;
+}
+
+.profile-form label span {
+  opacity: .55;
+  font-weight: 400;
+}
+
+.profile-form input,
+.profile-form select {
+  width: 100%;
+  padding: 15px;
+  border-radius: 13px;
+  border: 1px solid rgba(100,200,255,.25);
+  background: rgba(10,35,55,.8);
+  color: inherit;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.profile-form select option {
+  color: black;
+}
+
+
+/* EMAIL */
+
+.email-box {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.email-box input {
+  flex: 1;
+}
+
+#verificationStatus {
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+
+/* SAVE */
+
+.save-profile-btn {
+  margin-top: 25px;
+  width: 100%;
+  padding: 16px;
+  border: 0;
+  border-radius: 14px;
+  background: #16a4e5;
+  color: white;
+  font-size: 17px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.profile-message {
+  text-align: center;
+  min-height: 20px;
+}
+
+
+/* LOGOUT */
+
+.logout-section {
+  margin-top: 35px;
+  padding-top: 25px;
+  border-top: 1px solid rgba(255,255,255,.12);
+  text-align: center;
+}
+
+.logout-red {
+  width: 100%;
+  padding: 15px;
+  border-radius: 14px;
+  border: 1px solid #ff4d5a;
+  background: transparent;
+  color: #ff4d5a;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.logout-red:hover {
+  background: #ff4d5a;
+  color: white;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+  .profile-page {
+    margin: 15px auto;
+    padding: 12px;
+  }
+
+  .profile-card {
+    padding: 20px;
+    border-radius: 22px;
+  }
+
+  .profile-head h1 {
+    font-size: 30px;
+  }
+
+  .email-box {
+    display: block;
+  }
+
+  #verificationStatus {
+    display: block;
+    margin-top: 7px;
+  }
+
+}
+
+</style>
+
+
+<script>
+
+(function () {
+
+  function waitForAuth() {
+
+    if (!window.samAuth) {
+
+      setTimeout(waitForAuth, 300);
+
+      return;
+
+    }
+
+
+    const auth =
+      window.samAuth;
+
+
+    const nameInput =
+      document.getElementById(
+        "studentName"
+      );
+
+    const courseInput =
+      document.getElementById(
+        "course"
+      );
+
+    const branchInput =
+      document.getElementById(
+        "branch"
+      );
+
+    const examInput =
+      document.getElementById(
+        "exam"
+      );
+
+    const emailInput =
+      document.getElementById(
+        "profileEmail"
+      );
+
+    const photoInput =
+      document.getElementById(
+        "photoInput"
+      );
+
+    const photo =
+      document.getElementById(
+        "profilePhoto"
+      );
+
+    const message =
+      document.getElementById(
+        "profileMessage"
+      );
+
+    const status =
+      document.getElementById(
+        "verificationStatus"
+      );
+
+
+    auth.onAuthStateChanged(
+      function (user) {
+
+        if (!user) {
+
+          window.location.href =
+            "/login";
+
+          return;
+
+        }
+
+
+        /*
+         * EMAIL
+         */
+
+        emailInput.value =
+          user.email || "";
+
+
+        /*
+         * GOOGLE / FIREBASE VERIFICATION
+         */
+
+        if (user.emailVerified) {
+
+          status.textContent =
+            "✓ Verified";
+
+          status.style.color =
+            "#35d07f";
+
+        } else {
+
+          status.textContent =
+            "Not verified";
+
+          status.style.color =
+            "#ffb020";
+
+        }
+
+
+        /*
+         * NAME
+         */
+
+        nameInput.value =
+          user.displayName || "";
+
+
+        /*
+         * SAVED PROFILE
+         */
+
+        const key =
+          "samstudy_profile_" +
+          user.uid;
+
+        try {
+
+          const saved =
+            JSON.parse(
+              localStorage.getItem(key)
+            );
+
+          if (saved) {
+
+            nameInput.value =
+              saved.name || nameInput.value;
+
+            courseInput.value =
+              saved.course || "";
+
+            branchInput.value =
+              saved.branch || "";
+
+            examInput.value =
+              saved.exam || "";
+
+            if (saved.photo) {
+
+              photo.innerHTML =
+                "<img src='" +
+                saved.photo +
+                "' alt='Profile'>";
+
+            }
+
+          }
+
+        } catch (e) {
+
+          console.error(e);
+
+        }
+
+
+        /*
+         * PHOTO SELECT
+         */
+
+        photoInput.onchange =
+          function () {
+
+            const file =
+              photoInput.files[0];
+
+            if (!file) return;
+
+
+            const reader =
+              new FileReader();
+
+
+            reader.onload =
+              function (e) {
+
+                photo.innerHTML =
+                  "<img src='" +
+                  e.target.result +
+                  "' alt='Profile'>";
+
+                photo.dataset.image =
+                  e.target.result;
+
+              };
+
+
+            reader.readAsDataURL(file);
+
+          };
+
+
+        /*
+         * SAVE
+         */
+
+        document.getElementById(
+          "saveProfile"
+        ).onclick =
+          async function () {
+
+            const data = {
+
+              name:
+                nameInput.value.trim(),
+
+              course:
+                courseInput.value,
+
+              branch:
+                branchInput.value.trim(),
+
+              exam:
+                examInput.value,
+
+              photo:
+                photo.dataset.image || ""
+
+            };
+
+
+            localStorage.setItem(
+              key,
+              JSON.stringify(data)
+            );
+
+
+            /*
+             * Also update Firebase
+             * display name
+             */
+
+            try {
+
+              if (
+                data.name &&
+                data.name !==
+                user.displayName
+              ) {
+
+                await user.updateProfile({
+
+                  displayName:
+                    data.name
+
+                });
+
+              }
+
+            } catch (e) {
+
+              console.error(e);
+
+            }
+
+
+            message.textContent =
+              "✓ Profile saved successfully.";
+
+            message.style.color =
+              "#35d07f";
+
+          };
+
+
+        /*
+         * LOGOUT
+         */
+
+        document.getElementById(
+          "profileLogout"
+        ).onclick =
+          async function () {
+
+            await auth.signOut();
+
+            window.location.href =
+              "/";
+
+          };
+
+      }
+    );
+
+  }
+
+
+  waitForAuth();
+
+})();
+
+</script>
+
+{% endblock %}

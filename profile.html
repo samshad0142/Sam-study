@@ -1,0 +1,18 @@
+<div id="profileModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="profileTitle">
+  <div class="modalCard profileCard">
+    <button class="close" type="button" onclick="closeProfile()" aria-label="Close">×</button>
+    <div class="profileTop">
+      <img id="profilePhoto" class="profilePhoto" src="{{ url_for('static', filename='logo.png') }}" alt="Profile photo">
+      <label class="photoBtn">Change photo<input id="profileFile" type="file" accept="image/*" hidden></label>
+    </div>
+    <h2 id="profileTitle">Your Profile</h2>
+    <p id="profileEmail" class="muted"></p>
+    <label>Student name<input id="profileName" placeholder="Enter your name"></label>
+    <label>Course / degree<select id="profileCourse"><option value="">Select course</option><option>B.Tech</option><option>BCA</option><option>MCA</option><option>M.Tech</option><option>B.Pharm</option><option>B.Sc</option></select></label>
+    <label>Exam / preparation (optional)<select id="profileExam"></select></label>
+    <div class="verifyRow"><span id="verifyStatus">Gmail verification status</span><button class="outline" type="button" onclick="verifyEmail()">Send verification email</button></div>
+    <button class="primary full" type="button" onclick="saveProfile()">Save profile</button>
+    <p id="profileMsg"></p>
+    <button class="logoutBtn" type="button" onclick="logout()">Log out</button>
+  </div>
+</div>

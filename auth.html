@@ -1,0 +1,15 @@
+<div id="authModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+  <div class="modalCard">
+    <button class="close" type="button" onclick="closeAuth()" aria-label="Close">×</button>
+    <img class="authLogo" src="{{ url_for('static', filename='logo.png') }}" alt="SamStudy logo">
+    <h2 id="authTitle">Welcome to SamStudy</h2>
+    <button class="google" type="button" onclick="googleLogin()">G&nbsp;&nbsp; Continue with Google</button>
+    <div class="or">OR</div>
+    <input id="email" type="email" placeholder="Email address" autocomplete="email">
+    <input id="password" type="password" placeholder="Password" autocomplete="current-password">
+    <button class="primary full" type="button" onclick="emailLogin()">Login</button>
+    <button class="outline full" type="button" onclick="signup()">Create new account</button>
+    <button class="link" type="button" onclick="resetPassword()">Forgot password?</button>
+    <p id="authMsg"></p>
+  </div>
+</div>

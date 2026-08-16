@@ -1,0 +1,12 @@
+<section id="doubt">
+  <p class="eyebrow">AI DOUBT SOLVER</p>
+  <h2>Ask with text, voice or a photo.</h2>
+  <textarea id="doubtText" placeholder="Type your question/doubt here..." aria-label="Doubt text"></textarea>
+  <div class="actionRow">
+    <input id="doubtImage" type="file" accept="image/*" aria-label="Upload doubt image">
+    <button class="outline" type="button" onclick="startVoice()">🎙 Speak</button>
+    <button class="primary" type="button" onclick="solveDoubt()">Solve with AI</button>
+  </div>
+  <div id="doubtPreview"></div>
+  <div id="doubtOut" class="output aiAnswer"></div>
+</section>

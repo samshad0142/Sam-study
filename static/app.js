@@ -703,6 +703,7 @@
 
         year:
           $("#quizYear")?.value || "1",
+        course: $("#quizCourse")?.value || "B.Tech",
 
         level:
           $("#quizLevel")?.value ||

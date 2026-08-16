@@ -3,60 +3,24 @@
 
   function show(msg) {
     const el = document.getElementById("toast");
-    const msgEl = document.getElementById("authMessage");
-
-    if (el) {
-      el.textContent = msg;
-      el.classList.add("show");
-
-      clearTimeout(window.__toastTimer);
-      window.__toastTimer = setTimeout(() => {
-        el.classList.remove("show");
-      }, 3200);
-    }
-
-    if (msgEl) {
-      msgEl.textContent = msg;
-    }
-
-    console.log(msg);
+    if (!el) return;
+    el.textContent = msg;
+    el.classList.add("show");
+    setTimeout(() => el.classList.remove("show"), 3500);
   }
 
   window.showToast = show;
 
   try {
-    // Get Firebase configuration from your Flask/Render API
-    const response = await fetch("/api/firebase-config");
+    const r = await fetch("/api/firebase-config");
+    const cfg = await r.json();
 
-    if (!response.ok) {
-      throw new Error("Could not load Firebase configuration.");
-    }
-
-    const cfg = await response.json();
-
-    console.log("Firebase config loaded:", {
-      projectId: cfg.projectId,
-      appId: cfg.appId,
-      authDomain: cfg.authDomain
-    });
-
-    // Check required configuration
-    if (!cfg.apiKey || !cfg.projectId || !cfg.appId) {
+    if (!cfg.apiKey || !cfg.authDomain || !cfg.projectId || !cfg.appId) {
+      console.error("Firebase config incomplete:", cfg);
       show("Firebase configuration is incomplete.");
-      console.error("Missing Firebase configuration:", cfg);
       return;
     }
 
-    // Firebase SDK must already be loaded by HTML
-    if (!window.firebase) {
-      show("Firebase SDK is not loaded.");
-      console.error(
-        "Firebase SDK missing. Load firebase-app-compat.js and firebase-auth-compat.js before firebase-client.js."
-      );
-      return;
-    }
-
-    // Initialize Firebase
     if (!firebase.apps.length) {
       firebase.initializeApp(cfg);
     }
@@ -64,242 +28,122 @@
     auth = firebase.auth();
     window.samAuth = auth;
 
-    console.log("Firebase initialized successfully.");
-
-    // --------------------------------------------------
-    // AUTH STATE
-    // --------------------------------------------------
-
     auth.onAuthStateChanged(function (user) {
+      window.samUser = user || null;
+
       const login = document.getElementById("loginLink");
       const logout = document.getElementById("logoutBtn");
 
       if (user) {
-        console.log("User logged in:", user.email);
-
-        if (login) {
-          login.classList.add("hidden");
-        }
-
-        if (logout) {
-          logout.classList.remove("hidden");
-        }
-
-        window.samUser = user;
+        if (login) login.classList.add("hidden");
+        if (logout) logout.classList.remove("hidden");
       } else {
-        if (login) {
-          login.classList.remove("hidden");
-        }
-
-        if (logout) {
-          logout.classList.add("hidden");
-        }
-
-        window.samUser = null;
+        if (login) login.classList.remove("hidden");
+        if (logout) logout.classList.add("hidden");
       }
     });
-
-    // --------------------------------------------------
-    // LOGOUT
-    // --------------------------------------------------
 
     const logout = document.getElementById("logoutBtn");
 
     if (logout) {
-      logout.type = "button";
-
-      logout.onclick = async function (e) {
-        e.preventDefault();
-
-        try {
-          await auth.signOut();
-          window.location.href = "/";
-        } catch (err) {
-          show(friendlyError(err));
-        }
+      logout.onclick = async function () {
+        await auth.signOut();
+        location.href = "/";
       };
     }
 
-    // --------------------------------------------------
-    // GOOGLE LOGIN
-    // --------------------------------------------------
+    const googleLogin = document.getElementById("googleLogin");
+    const googleSignup = document.getElementById("googleSignup");
 
-    const googleButtons = [
-      document.getElementById("googleLogin"),
-      document.getElementById("googleSignup")
-    ].filter(Boolean);
+    async function googleLoginHandler(e) {
+      e.preventDefault();
 
-    googleButtons.forEach(function (button) {
-      button.type = "button";
+      try {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        await auth.signInWithRedirect(provider);
+      } catch (err) {
+        console.error(err);
+        show("Google login failed: " + friendlyError(err));
+      }
+    }
 
-      button.addEventListener("click", async function (e) {
-        e.preventDefault();
-        e.stopPropagation();
+    if (googleLogin) {
+      googleLogin.addEventListener("click", googleLoginHandler);
+    }
 
-        try {
-          console.log("Starting Google login...");
-
-          const provider =
-            new firebase.auth.GoogleAuthProvider();
-
-          provider.setCustomParameters({
-            prompt: "select_account"
-          });
-
-          await auth.signInWithRedirect(provider);
-
-        } catch (err) {
-          console.error("Google login error:", err);
-          show("Google login failed: " + friendlyError(err));
-        }
-      });
-    });
-
-    // --------------------------------------------------
-    // EMAIL LOGIN
-    // --------------------------------------------------
+    if (googleSignup) {
+      googleSignup.addEventListener("click", googleLoginHandler);
+    }
 
     if (location.pathname === "/login") {
 
-      const form =
-        document.getElementById("loginForm");
-
-      const msg =
-        document.getElementById("authMessage");
+      const form = document.getElementById("loginForm");
+      const msg = document.getElementById("authMessage");
 
       if (form) {
-
         form.addEventListener("submit", async function (e) {
-
           e.preventDefault();
-          e.stopPropagation();
 
           try {
-
-            const email =
-              document.getElementById("email").value.trim();
-
-            const password =
-              document.getElementById("password").value;
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value;
 
             if (!email || !password) {
-              if (msg) {
-                msg.textContent =
-                  "Enter email and password.";
-              }
+              msg.textContent = "Email and password required.";
               return;
             }
 
-            console.log("Logging in:", email);
+            await auth.signInWithEmailAndPassword(email, password);
 
-            await auth.signInWithEmailAndPassword(
-              email,
-              password
-            );
-
-            console.log("Email login successful.");
-
-            window.location.href = "/";
-
+            location.href = "/";
           } catch (err) {
-
-            console.error("Email login error:", err);
-
-            if (msg) {
-              msg.textContent =
-                friendlyError(err);
-            }
+            console.error(err);
+            msg.textContent = friendlyError(err);
           }
         });
       }
 
-      // ------------------------------------------------
-      // FORGOT PASSWORD
-      // ------------------------------------------------
-
-      const forgot =
-        document.getElementById("forgotPassword");
+      const forgot = document.getElementById("forgotPassword");
 
       if (forgot) {
-
-        forgot.type = "button";
-
         forgot.onclick = async function (e) {
-
           e.preventDefault();
 
-          const email =
-            document.getElementById("email").value.trim();
+          const email = document.getElementById("email").value.trim();
 
           if (!email) {
-            if (msg) {
-              msg.textContent =
-                "Enter your email first.";
-            }
+            msg.textContent = "Enter your email first.";
             return;
           }
 
           try {
-
             await auth.sendPasswordResetEmail(email);
-
-            if (msg) {
-              msg.textContent =
-                "Password reset email sent.";
-            }
-
+            msg.textContent = "Password reset email sent.";
           } catch (err) {
-
-            if (msg) {
-              msg.textContent =
-                friendlyError(err);
-            }
+            msg.textContent = friendlyError(err);
           }
         };
       }
     }
 
-    // --------------------------------------------------
-    // CREATE ACCOUNT
-    // --------------------------------------------------
-
     if (location.pathname === "/signup") {
 
-      const form =
-        document.getElementById("signupForm");
-
-      const msg =
-        document.getElementById("authMessage");
+      const form = document.getElementById("signupForm");
+      const msg = document.getElementById("authMessage");
 
       if (form) {
-
         form.addEventListener("submit", async function (e) {
-
           e.preventDefault();
-          e.stopPropagation();
 
           try {
-
-            const name =
-              document.getElementById("name").value.trim();
-
-            const email =
-              document.getElementById("email").value.trim();
-
-            const password =
-              document.getElementById("password").value;
+            const name = document.getElementById("name").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value;
 
             if (!name || !email || !password) {
-
-              if (msg) {
-                msg.textContent =
-                  "Please fill all fields.";
-              }
-
+              msg.textContent = "Please fill all fields.";
               return;
             }
-
-            console.log("Creating account:", email);
 
             const result =
               await auth.createUserWithEmailAndPassword(
@@ -308,33 +152,99 @@
               );
 
             if (name) {
-
               await result.user.updateProfile({
                 displayName: name
               });
             }
 
-            console.log("Account created successfully.");
-
-            window.location.href = "/";
-
+            location.href = "/";
           } catch (err) {
-
-            console.error("Signup error:", err);
-
-            if (msg) {
-              msg.textContent =
-                friendlyError(err);
-            }
+            console.error(err);
+            msg.textContent = friendlyError(err);
           }
         });
       }
     }
 
-    // --------------------------------------------------
-    // GOOGLE REDIRECT RESULT
-    // --------------------------------------------------
-
     try {
+      const result = await auth.getRedirectResult();
 
-     
+      if (result && result.user) {
+        location.href = "/";
+      }
+    } catch (err) {
+      console.error("Redirect error:", err);
+
+      const msg = document.getElementById("authMessage");
+
+      if (msg) {
+        msg.textContent = friendlyError(err);
+      }
+    }
+
+  } catch (err) {
+    console.error("Firebase initialization error:", err);
+    show("Firebase connection error.");
+  }
+
+  function friendlyError(e) {
+    const code = e && e.code ? e.code : "";
+
+    const map = {
+      "auth/api-key-not-valid":
+        "Firebase API key is invalid.",
+
+      "auth/invalid-api-key":
+        "Firebase API key is invalid.",
+
+      "auth/operation-not-allowed":
+        "This login method is disabled in Firebase.",
+
+      "auth/unauthorized-domain":
+        "Render domain is not authorized in Firebase.",
+
+      "auth/email-already-in-use":
+        "This email already has an account. Login instead.",
+
+      "auth/invalid-credential":
+        "Email or password is incorrect.",
+
+      "auth/invalid-login-credentials":
+        "Email or password is incorrect.",
+
+      "auth/weak-password":
+        "Password must be at least 6 characters.",
+
+      "auth/user-not-found":
+        "No account found with this email.",
+
+      "auth/wrong-password":
+        "Incorrect password."
+    };
+
+    return map[code] ||
+      (e && e.message
+        ? e.message.replace("Firebase: ", "")
+        : "Something went wrong.");
+  }
+
+  window.getIdToken = async function () {
+    if (!auth || !auth.currentUser) return null;
+    return await auth.currentUser.getIdToken(true);
+  };
+
+  window.authFetch = async function (url, options = {}) {
+    const token = await window.getIdToken();
+
+    options.headers = Object.assign(
+      {},
+      options.headers || {}
+    );
+
+    if (token) {
+      options.headers.Authorization = "Bearer " + token;
+    }
+
+    return fetch(url, options);
+  };
+})();

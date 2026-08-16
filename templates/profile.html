@@ -9,15 +9,12 @@
   <div class="profile-card">
 
     <div class="profile-head">
-      <div>
-        <span class="profile-label">SAMSTUDY PROFILE</span>
-        <h1>My Profile</h1>
-        <p>Manage your student information</p>
-      </div>
+      <span class="profile-label">SAMSTUDY PROFILE</span>
+      <h1>My Profile</h1>
+      <p>Manage your student information</p>
     </div>
 
-
-    <!-- PHOTO -->
+    <!-- PROFILE PHOTO -->
 
     <div class="profile-photo-section">
 
@@ -27,6 +24,7 @@
 
       <label class="photo-btn">
         📷 Change Photo
+
         <input
           type="file"
           id="photoInput"
@@ -37,13 +35,13 @@
       </label>
 
       <small>
-        Choose a photo from gallery or camera
+        Choose photo from gallery or camera
       </small>
 
     </div>
 
 
-    <!-- NAME -->
+    <!-- PROFILE DETAILS -->
 
     <div class="profile-form">
 
@@ -52,19 +50,15 @@
       <input
         id="studentName"
         type="text"
-        placeholder="Enter your name"
+        placeholder="Enter student name"
       >
 
-
-      <!-- COURSE -->
 
       <label>Course / Education</label>
 
       <select id="course">
 
-        <option value="">
-          Select course
-        </option>
+        <option value="">Select course</option>
 
         <option>B.Tech</option>
         <option>BCA</option>
@@ -77,8 +71,6 @@
       </select>
 
 
-      <!-- BRANCH -->
-
       <label>Branch / Stream</label>
 
       <input
@@ -87,8 +79,6 @@
         placeholder="Example: Computer Science & Engineering"
       >
 
-
-      <!-- EXAM -->
 
       <label>
         Government / Competitive Exam
@@ -115,7 +105,7 @@
       </select>
 
 
-      <!-- EMAIL -->
+      <!-- GMAIL -->
 
       <label>Gmail</label>
 
@@ -132,6 +122,15 @@
         </span>
 
       </div>
+
+
+      <button
+        type="button"
+        id="verifyEmailBtn"
+        class="verify-btn hidden"
+      >
+        Send Gmail Verification
+      </button>
 
 
       <!-- SAVE -->
@@ -181,9 +180,9 @@
 
 .profile-card {
   padding: 30px;
-  border: 1px solid rgba(80,190,255,.3);
   border-radius: 28px;
-  background: rgba(5,25,42,.9);
+  background: rgba(5,25,42,.92);
+  border: 1px solid rgba(80,190,255,.3);
   box-shadow: 0 20px 60px rgba(0,0,0,.25);
 }
 
@@ -308,6 +307,20 @@
 }
 
 
+/* VERIFY */
+
+.verify-btn {
+  margin-top: 5px;
+  padding: 12px;
+  border: 1px solid #55c9ff;
+  border-radius: 12px;
+  background: transparent;
+  color: #55c9ff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+
 /* SAVE */
 
 .save-profile-btn {
@@ -322,6 +335,9 @@
   font-weight: 800;
   cursor: pointer;
 }
+
+
+/* MESSAGE */
 
 .profile-message {
   text-align: center;
@@ -353,6 +369,10 @@
 .logout-red:hover {
   background: #ff4d5a;
   color: white;
+}
+
+.hidden {
+  display: none !important;
 }
 
 
@@ -392,158 +412,425 @@
 
 (function () {
 
-  function waitForAuth() {
+  function startProfile() {
 
     if (!window.samAuth) {
-
-      setTimeout(waitForAuth, 300);
-
+      setTimeout(startProfile, 300);
       return;
+    }
+
+    const auth = window.samAuth;
+
+    const db = firebase.firestore();
+
+    const storage = firebase.storage();
+
+    let currentUser = null;
+
+
+    const nameInput =
+      document.getElementById("studentName");
+
+    const courseInput =
+      document.getElementById("course");
+
+    const branchInput =
+      document.getElementById("branch");
+
+    const examInput =
+      document.getElementById("exam");
+
+    const emailInput =
+      document.getElementById("profileEmail");
+
+    const photoInput =
+      document.getElementById("photoInput");
+
+    const photo =
+      document.getElementById("profilePhoto");
+
+    const status =
+      document.getElementById("verificationStatus");
+
+    const verifyBtn =
+      document.getElementById("verifyEmailBtn");
+
+    const message =
+      document.getElementById("profileMessage");
+
+
+    /*
+     * AUTH
+     */
+
+    auth.onAuthStateChanged(
+      async function (user) {
+
+        if (!user) {
+          location.href = "/login";
+          return;
+        }
+
+        currentUser = user;
+
+        emailInput.value =
+          user.email || "";
+
+        updateVerification();
+
+        await loadProfile();
+
+      }
+    );
+
+
+    /*
+     * EMAIL VERIFICATION
+     */
+
+    function updateVerification() {
+
+      if (!currentUser) return;
+
+      if (currentUser.emailVerified) {
+
+        status.textContent =
+          "✓ Gmail Verified";
+
+        status.style.color =
+          "#35d07f";
+
+        verifyBtn.classList.add(
+          "hidden"
+        );
+
+      } else {
+
+        status.textContent =
+          "Not Verified";
+
+        status.style.color =
+          "#ffb020";
+
+        verifyBtn.classList.remove(
+          "hidden"
+        );
+
+      }
 
     }
 
 
-    const auth =
-      window.samAuth;
+    verifyBtn.onclick =
+      async function () {
+
+        if (!currentUser) return;
+
+        try {
+
+          await currentUser
+            .sendEmailVerification();
+
+          message.textContent =
+            "✓ Verification email sent.";
+
+          message.style.color =
+            "#35d07f";
+
+        } catch (e) {
+
+          console.error(e);
+
+          message.textContent =
+            "Verification failed.";
+
+          message.style.color =
+            "#ff5964";
+
+        }
+
+      };
 
 
-    const nameInput =
-      document.getElementById(
-        "studentName"
-      );
+    /*
+     * LOAD FIRESTORE PROFILE
+     */
 
-    const courseInput =
-      document.getElementById(
-        "course"
-      );
+    async function loadProfile() {
 
-    const branchInput =
-      document.getElementById(
-        "branch"
-      );
+      try {
 
-    const examInput =
-      document.getElementById(
-        "exam"
-      );
+        const ref =
+          db
+            .collection("users")
+            .doc(currentUser.uid);
 
-    const emailInput =
-      document.getElementById(
-        "profileEmail"
-      );
+        const snap =
+          await ref.get();
 
-    const photoInput =
-      document.getElementById(
-        "photoInput"
-      );
+        if (!snap.exists) {
 
-    const photo =
-      document.getElementById(
-        "profilePhoto"
-      );
+          nameInput.value =
+            currentUser.displayName || "";
 
-    const message =
-      document.getElementById(
-        "profileMessage"
-      );
+          return;
 
-    const status =
-      document.getElementById(
-        "verificationStatus"
-      );
+        }
+
+        const data = snap.data();
+
+        nameInput.value =
+          data.name ||
+          currentUser.displayName ||
+          "";
+
+        courseInput.value =
+          data.course || "";
+
+        branchInput.value =
+          data.branch || "";
+
+        examInput.value =
+          data.exam || "";
+
+        if (data.photoURL) {
+          showPhoto(data.photoURL);
+        }
+
+      } catch (e) {
+
+        console.error(
+          "Profile load error:",
+          e
+        );
+
+        message.textContent =
+          "Profile could not be loaded.";
+
+        message.style.color =
+          "#ff5964";
+
+      }
+
+    }
 
 
-    auth.onAuthStateChanged(
-      function (user) {
+    /*
+     * SHOW PHOTO
+     */
 
-        if (!user) {
+    function showPhoto(url) {
 
-          window.location.href =
-            "/login";
+      photo.innerHTML =
+        "<img src=\"" +
+        url +
+        "\" alt=\"Profile\">";
+
+    }
+
+
+    /*
+     * PHOTO UPLOAD
+     */
+
+    photoInput.onchange =
+      async function () {
+
+        const file =
+          photoInput.files[0];
+
+        if (!file || !currentUser)
+          return;
+
+        if (!file.type.startsWith("image/")) {
+
+          message.textContent =
+            "Please select an image.";
+
+          return;
+
+        }
+
+        if (file.size > 5 * 1024 * 1024) {
+
+          message.textContent =
+            "Photo must be below 5 MB.";
+
+          message.style.color =
+            "#ff5964";
+
+          return;
+
+        }
+
+        message.textContent =
+          "Uploading photo...";
+
+        message.style.color =
+          "#55c9ff";
+
+        try {
+
+          const ref =
+            storage
+              .ref(
+                "profilePhotos/" +
+                currentUser.uid
+              );
+
+          await ref.put(file);
+
+          const url =
+            await ref.getDownloadURL();
+
+          await db
+            .collection("users")
+            .doc(currentUser.uid)
+            .set(
+              {
+                photoURL: url
+              },
+              {
+                merge: true
+              }
+            );
+
+          showPhoto(url);
+
+          message.textContent =
+            "✓ Profile photo updated.";
+
+          message.style.color =
+            "#35d07f";
+
+        } catch (e) {
+
+          console.error(e);
+
+          message.textContent =
+            "Photo upload failed.";
+
+          message.style.color =
+            "#ff5964";
+
+        }
+
+      };
+
+
+    /*
+     * SAVE PROFILE
+     */
+
+    document.getElementById(
+      "saveProfile"
+    ).onclick =
+      async function () {
+
+        if (!currentUser) return;
+
+        const data = {
+
+          name:
+            nameInput.value.trim(),
+
+          course:
+            courseInput.value,
+
+          branch:
+            branchInput.value.trim(),
+
+          exam:
+            examInput.value,
+
+          email:
+            currentUser.email || "",
+
+          updatedAt:
+            firebase.firestore
+              .FieldValue
+              .serverTimestamp()
+
+        };
+
+
+        if (!data.name) {
+
+          message.textContent =
+            "Please enter student name.";
+
+          message.style.color =
+            "#ff5964";
 
           return;
 
         }
 
 
-        /*
-         * EMAIL
-         */
+        message.textContent =
+          "Saving profile...";
 
-        emailInput.value =
-          user.email || "";
+        message.style.color =
+          "#55c9ff";
 
-
-        /*
-         * GOOGLE / FIREBASE VERIFICATION
-         */
-
-        if (user.emailVerified) {
-
-          status.textContent =
-            "✓ Verified";
-
-          status.style.color =
-            "#35d07f";
-
-        } else {
-
-          status.textContent =
-            "Not verified";
-
-          status.style.color =
-            "#ffb020";
-
-        }
-
-
-        /*
-         * NAME
-         */
-
-        nameInput.value =
-          user.displayName || "";
-
-
-        /*
-         * SAVED PROFILE
-         */
-
-        const key =
-          "samstudy_profile_" +
-          user.uid;
 
         try {
 
-          const saved =
-            JSON.parse(
-              localStorage.getItem(key)
+          await db
+            .collection("users")
+            .doc(currentUser.uid)
+            .set(
+              data,
+              {
+                merge: true
+              }
             );
 
-          if (saved) {
 
-            nameInput.value =
-              saved.name || nameInput.value;
+          await currentUser
+            .updateProfile({
 
-            courseInput.value =
-              saved.course || "";
+              displayName:
+                data.name
 
-            branchInput.value =
-              saved.branch || "";
+            });
 
-            examInput.value =
-              saved.exam || "";
 
-            if (saved.photo) {
+          message.textContent =
+            "✓ Profile saved successfully.";
 
-              photo.innerHTML =
-                "<img src='" +
-                saved.photo +
-                "' alt='Profile'>";
+          message.style.color =
+            "#35d07f";
 
-            }
+        } catch (e) {
 
-          }
+          console.error(e);
+
+          message.textContent =
+            "Profile save failed.";
+
+          message.style.color =
+            "#ff5964";
+
+        }
+
+      };
+
+
+    /*
+     * LOGOUT
+     */
+
+    document.getElementById(
+      "profileLogout"
+    ).onclick =
+      async function () {
+
+        try {
+
+          await auth.signOut();
+
+          location.href = "/";
 
         } catch (e) {
 
@@ -551,139 +838,12 @@
 
         }
 
-
-        /*
-         * PHOTO SELECT
-         */
-
-        photoInput.onchange =
-          function () {
-
-            const file =
-              photoInput.files[0];
-
-            if (!file) return;
-
-
-            const reader =
-              new FileReader();
-
-
-            reader.onload =
-              function (e) {
-
-                photo.innerHTML =
-                  "<img src='" +
-                  e.target.result +
-                  "' alt='Profile'>";
-
-                photo.dataset.image =
-                  e.target.result;
-
-              };
-
-
-            reader.readAsDataURL(file);
-
-          };
-
-
-        /*
-         * SAVE
-         */
-
-        document.getElementById(
-          "saveProfile"
-        ).onclick =
-          async function () {
-
-            const data = {
-
-              name:
-                nameInput.value.trim(),
-
-              course:
-                courseInput.value,
-
-              branch:
-                branchInput.value.trim(),
-
-              exam:
-                examInput.value,
-
-              photo:
-                photo.dataset.image || ""
-
-            };
-
-
-            localStorage.setItem(
-              key,
-              JSON.stringify(data)
-            );
-
-
-            /*
-             * Also update Firebase
-             * display name
-             */
-
-            try {
-
-              if (
-                data.name &&
-                data.name !==
-                user.displayName
-              ) {
-
-                await user.updateProfile({
-
-                  displayName:
-                    data.name
-
-                });
-
-              }
-
-            } catch (e) {
-
-              console.error(e);
-
-            }
-
-
-            message.textContent =
-              "✓ Profile saved successfully.";
-
-            message.style.color =
-              "#35d07f";
-
-          };
-
-
-        /*
-         * LOGOUT
-         */
-
-        document.getElementById(
-          "profileLogout"
-        ).onclick =
-          async function () {
-
-            await auth.signOut();
-
-            window.location.href =
-              "/";
-
-          };
-
-      }
-    );
+      };
 
   }
 
 
-  waitForAuth();
+  startProfile();
 
 })();
 

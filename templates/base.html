@@ -2,56 +2,42 @@
 <html lang="en">
 
 <head>
-
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1"
-  >
+  <meta name="theme-color" content="#0b8ed1">
 
-  <meta
-    name="theme-color"
-    content="#38bdf8"
-  >
-
-  <title>
-    {% block title %}SamStudy{% endblock %}
-  </title>
+  <title>{% block title %}SamStudy{% endblock %}</title>
 
   <link
     rel="stylesheet"
     href="{{ url_for('static', filename='style.css') }}"
   >
 
-
   <!-- Firebase -->
-
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
-
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
-
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
-
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-storage-compat.js"></script>
 
   <script
     src="{{ url_for('static', filename='firebase-client.js') }}"
-    defer
-  ></script>
+    defer>
+  </script>
 
   <script
     src="{{ url_for('static', filename='app.js') }}"
-    defer
-  ></script>
+    defer>
+  </script>
 
 </head>
 
 
 <body>
 
-
 <header class="site-header">
+
+  <!-- LOGO / HOME -->
 
   <a
     class="brand"
@@ -67,6 +53,8 @@
 
   </a>
 
+
+  <!-- NAVIGATION -->
 
   <nav class="main-nav">
 
@@ -85,8 +73,9 @@
   </nav>
 
 
-  <div class="header-actions">
+  <!-- HEADER ACTIONS -->
 
+  <div class="header-actions">
 
     <!-- Theme -->
 
@@ -94,8 +83,7 @@
       class="icon-btn"
       id="themeToggle"
       title="Toggle night mode"
-      type="button"
-    >
+      type="button">
       ☼
     </button>
 
@@ -104,9 +92,8 @@
 
     <a
       id="loginLink"
-      class="btn-primary"
-      href="/login"
-    >
+      class="header-login"
+      href="/login">
       Login
     </a>
 
@@ -117,19 +104,25 @@
       id="profileLink"
       class="profile-header-btn hidden"
       href="/profile"
-      title="My Profile"
-    >
+      title="My Profile">
 
       <span id="headerProfilePhoto">
         👤
       </span>
 
-      <span class="profile-header-text">
-        Profile
-      </span>
+      <span>Profile</span>
 
     </a>
 
+
+    <!-- Logout intentionally NOT shown here -->
+
+    <button
+      id="logoutBtn"
+      class="hidden"
+      type="button">
+      Logout
+    </button>
 
   </div>
 
@@ -138,8 +131,7 @@
 
 <main class="page-shell">
 
-  {% block content %}
-  {% endblock %}
+  {% block content %}{% endblock %}
 
 </main>
 
@@ -161,10 +153,9 @@
 </footer>
 
 
-
 <style>
 
-/* Profile button */
+/* PROFILE HEADER */
 
 .profile-header-btn {
 
@@ -172,39 +163,42 @@
 
   align-items: center;
 
-  gap: 9px;
+  gap: 8px;
 
-  padding: 10px 16px;
+  padding: 11px 17px;
 
   border-radius: 14px;
 
   text-decoration: none;
 
-  color: #fff;
+  color: white;
 
-  background: rgba(20,160,225,.18);
-
-  border: 1px solid rgba(70,190,255,.35);
+  background:
+    linear-gradient(
+      135deg,
+      #159edb,
+      #3d70e8
+    );
 
   font-weight: 800;
 
-}
-
-
-.profile-header-btn:hover {
-
-  background: rgba(20,160,225,.32);
+  border: 1px solid
+    rgba(255,255,255,.15);
 
 }
 
+
+/* HEADER PROFILE PHOTO */
 
 #headerProfilePhoto {
 
-  width: 32px;
+  width: 30px;
 
-  height: 32px;
+  height: 30px;
 
   border-radius: 50%;
+
+  overflow: hidden;
 
   display: flex;
 
@@ -212,16 +206,12 @@
 
   justify-content: center;
 
-  overflow: hidden;
+  background:
+    rgba(255,255,255,.18);
 
-  background: linear-gradient(
-    135deg,
-    #159fe0,
-    #6948e8
-  );
+  font-size: 18px;
 
 }
-
 
 #headerProfilePhoto img {
 
@@ -234,7 +224,31 @@
 }
 
 
-/* Hidden */
+/* LOGIN */
+
+.header-login {
+
+  padding: 13px 24px;
+
+  border-radius: 14px;
+
+  text-decoration: none;
+
+  color: white;
+
+  background:
+    linear-gradient(
+      135deg,
+      #159edb,
+      #287de0
+    );
+
+  font-weight: 800;
+
+}
+
+
+/* HIDDEN */
 
 .hidden {
 
@@ -243,19 +257,25 @@
 }
 
 
-/* Mobile */
+/* MOBILE */
 
-@media (max-width: 600px) {
+@media (max-width: 650px) {
 
-  .profile-header-text {
+  .profile-header-btn {
+
+    padding: 10px 13px;
+
+  }
+
+  .profile-header-btn span:last-child {
 
     display: none;
 
   }
 
-  .profile-header-btn {
+  .header-login {
 
-    padding: 8px 11px;
+    padding: 11px 17px;
 
   }
 
@@ -263,6 +283,8 @@
 
 </style>
 
+
+{% block scripts %}{% endblock %}
 
 </body>
 

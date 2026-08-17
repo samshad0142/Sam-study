@@ -1,32 +1,130 @@
 <section class="hero" aria-labelledby="hero-title">
   <div>
     <p class="eyebrow">B.TECH • COMPETITIVE EXAM LEARNING PLATFORM</p>
-    <h1 id="hero-title">Study smarter.<br><em>Build stronger.</em></h1>
-    <p class="lead">Notes, PYQs, quizzes, real-exam practice tests, 3-D learning and AI-powered doubt solving — all in one place.</p>
+
+    <h1 id="hero-title">
+      Study smarter.<br>
+      <em>Build stronger.</em>
+    </h1>
+
+    <p class="lead">
+      Notes, PYQs, quizzes, real-exam practice tests, 3-D learning and
+      AI-powered doubt solving — all in one place.
+    </p>
+
     <div class="heroActions">
       <a class="primary" href="/batches">Explore Batches</a>
-      <button class="outline" type="button" id="heroLogin" onclick="openAuth()">Login / Sign up</button>
+      <button class="outline" type="button" id="heroLogin" onclick="openAuth()">
+        Login / Sign up
+      </button>
     </div>
   </div>
+
   <div class="logo-orbit" aria-label="SamStudy 3-D logo">
-    <img src="{{ url_for('static', filename='logo.png') }}" alt="SamStudy 3-D logo">
+    <img
+      src="{{ url_for('static', filename='logo.png') }}"
+      alt="SamStudy 3-D logo"
+    >
   </div>
 </section>
+
 
 <section class="quote">
   <div>“</div>
-  <blockquote>Kuch tere saath honge, kuch tere kaan bhi bharenge.<br>Parinde jab zameen pe aaye hain, to udaan bhi bharenge.</blockquote>
+
+  <blockquote>
+    Kuch tere saath honge, kuch tere kaan bhi bharenge.<br>
+    Parinde jab zameen pe aaye hain, to udaan bhi bharenge.
+  </blockquote>
+
   <cite>— Sam Malik</cite>
 </section>
 
-<section class="youtube">
-  <span>▶</span>
-  <div><small>MY YOUTUBE CHANNEL</small><strong>Sam_malik77</strong></div>
-  <a href="{{ youtube }}" target="_blank" rel="noopener">Visit YouTube</a>
+
+<!-- MORE LEARNING -->
+<section class="more-learning" aria-labelledby="more-learning-title">
+
+  <p class="eyebrow">MORE LEARNING</p>
+
+  <h2 id="more-learning-title">Learn beyond the basics.</h2>
+
+  <div class="learning-grid">
+
+    <!-- NOTES -->
+    <a class="learning-card notes-card" href="/notes">
+      <span class="learning-icon">▤</span>
+
+      <div>
+        <h3>Notes</h3>
+        <p>Study notes, units and learning material.</p>
+      </div>
+
+      <span class="learning-arrow">→</span>
+    </a>
+
+
+    <!-- 3-D LEARNING -->
+    <a class="learning-card learning-3d-card" href="/3d">
+      <span class="learning-icon">3D</span>
+
+      <div>
+        <h3>3-D Learning</h3>
+        <p>Explore concepts through visual learning.</p>
+      </div>
+
+      <span class="learning-arrow">→</span>
+    </a>
+
+
+    <!-- AI DOUBT -->
+    <a class="learning-card ai-card" href="/ai-doubt">
+      <span class="learning-icon">AI</span>
+
+      <div>
+        <h3>AI Doubt Solver</h3>
+        <p>Ask doubts using text, voice or a photo.</p>
+      </div>
+
+      <span class="learning-arrow">→</span>
+    </a>
+
+  </div>
 </section>
 
+
+<!-- YOUTUBE -->
+<section class="youtube">
+  <span>▶</span>
+
+  <div>
+    <small>MY YOUTUBE CHANNEL</small>
+    <strong>Sam_malik77</strong>
+  </div>
+
+  <a
+    href="{{ youtube }}"
+    target="_blank"
+    rel="noopener"
+  >
+    Visit YouTube
+  </a>
+</section>
+
+
+<!-- INSTAGRAM -->
 <section class="instagram">
   <span>◎</span>
-  <div><small>MY INSTAGRAM</small><strong>Sam_shad132</strong></div>
-  <a href="https://instagram.com/Sam_shad132" target="_blank" rel="noopener">Visit Instagram</a>
+
+  <div>
+    <small>MY INSTAGRAM</small>
+    <strong>Sam_shad132</strong>
+  </div>
+
+  <a
+    href="https://instagram.com/Sam_shad132"
+    target="_blank"
+    rel="noopener"
+  >
+    Visit Instagram
+  </a>
 </section>

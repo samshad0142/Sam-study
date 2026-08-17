@@ -376,3 +376,43 @@ body.light .social,
 body.light .social b {
     color: #10202d !important;
 }
+/* ===== BATCH YEAR COLORS ===== */
+
+.year {
+    color: #20b8ff !important;
+    background: #071b2b !important;
+    font-weight: 900 !important;
+}
+
+.card:nth-child(2) .year {
+    color: #9b6cff !important;
+}
+
+.card:nth-child(3) .year {
+    color: #18c9b6 !important;
+}
+
+.card:nth-child(4) .year {
+    color: #ffb414 !important;
+}
+
+/* Light mode — numbers remain clearly visible */
+body.light .year {
+    background: #e8f6fd !important;
+    color: #078fd0 !important;
+}
+
+body.light .card:nth-child(2) .year {
+    background: #f0eaff !important;
+    color: #7040d9 !important;
+}
+
+body.light .card:nth-child(3) .year {
+    background: #e6fbf7 !important;
+    color: #008f80 !important;
+}
+
+body.light .card:nth-child(4) .year {
+    background: #fff5d9 !important;
+    color: #bd7900 !important;
+}

@@ -1,0 +1,19 @@
+<header>
+  <a class="brand" href="/" aria-label="SamStudy home">
+    <img src="{{ url_for('static', filename='logo.png') }}" alt="SamStudy logo">
+    <span>SamStudy</span>
+  </a>
+  <nav aria-label="Main navigation">
+    <a href="/">Home</a>
+    <a href="/batches">Batches</a>
+    <a href="/quiz">Quiz</a>
+    <a href="/tests">Tests</a>
+    <a href="/notes">Notes</a>
+    <a href="/three">3-D</a>
+    <a href="/doubt">Doubt</a>
+  </nav>
+  <button id="theme" type="button" title="Switch to light mode" aria-label="Switch to light mode">☾</button>
+  <div id="authArea" class="topProfileArea">
+    <button id="loginBtn" class="primary" type="button" onclick="openAuth()">Login / Sign up</button>
+  </div>
+</header>

@@ -266,3 +266,113 @@ body.light .instagram strong{color:#102334}
 }
 
 html.preLight body{--bg:#f2f8fc;--bg2:#eef6fb;--panel:#fff;--panel2:#f7fbfe;--line:#bdd8e7;--text:#102334;--muted:#587082;--quote:#eef1ff;background:#f2f8fc;color:#102334}
+/* =========================================================
+   SAMSTUDY — VISIBILITY FIX
+   Do not change layout/design
+   ========================================================= */
+
+/* Default readable text */
+body {
+    color: #f4f8fc;
+}
+
+p,
+small,
+label {
+    color: #aebfcc;
+}
+
+/* DARK MODE */
+body:not(.light) .quote,
+body:not(.light) .motivation {
+    background: #141d3d !important;
+    color: #f3eaff !important;
+}
+
+body:not(.light) .quote blockquote,
+body:not(.light) .motivation blockquote {
+    color: #f3eaff !important;
+}
+
+body:not(.light) .quote cite,
+body:not(.light) .motivation cite {
+    color: #d7a8ff !important;
+}
+
+/* LIGHT MODE */
+body.light {
+    color: #10202d;
+}
+
+body.light p,
+body.light small,
+body.light label {
+    color: #405667 !important;
+}
+
+body.light .quote,
+body.light .motivation {
+    background: #ffffff !important;
+    border-color: #8b5cf6 !important;
+    color: #332044 !important;
+}
+
+body.light .quote blockquote,
+body.light .motivation blockquote {
+    color: #332044 !important;
+    font-weight: 700 !important;
+}
+
+body.light .quote cite,
+body.light .motivation cite {
+    color: #69439a !important;
+}
+
+/* Cards */
+body.light .card,
+body.light .tool,
+body.light .notice {
+    color: #10202d !important;
+}
+
+body.light .card h3,
+body.light .tool strong {
+    color: #10202d !important;
+}
+
+body.light .card p,
+body.light .tool small {
+    color: #526a79 !important;
+}
+
+/* Form fields */
+body.light input,
+body.light select,
+body.light textarea {
+    color: #10202d !important;
+    background: #ffffff !important;
+    border-color: #8fb8ca !important;
+}
+
+body.light input::placeholder,
+body.light textarea::placeholder {
+    color: #657986 !important;
+}
+
+/* Select options */
+body.light select option {
+    background: #ffffff;
+    color: #10202d;
+}
+
+/* Buttons */
+body.light .btn:not(.primary) {
+    color: #10202d !important;
+    background: #ffffff !important;
+}
+
+/* Footer text */
+body.light .social,
+body.light .social b {
+    color: #10202d !important;
+}

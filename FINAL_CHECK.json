@@ -1,0 +1,18 @@
+{
+  "logo": "Original static/logo.png preserved unchanged and embedded in preview",
+  "hero_logo": "Uses the same original logo.png, not a replacement S",
+  "light_mode_quote": "High-contrast text so shayari remains visible",
+  "dark_light": "Toggle + localStorage persistence",
+  "profile": "Top-right login/profile button",
+  "navigation": [
+    "Home",
+    "Batches",
+    "Quiz",
+    "Tests",
+    "Profile"
+  ],
+  "social": [
+    "YouTube: Sam_malik77",
+    "Instagram: Sam_shad132"
+  ]
+}

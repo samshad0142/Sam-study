@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}SamStudy • Quiz{% endblock %}
+{% block content %}
+<section class="pageSection authPage" data-auth-page="true" id="quizPage">
+  <p class="eyebrow">AI QUIZ</p>
+  <h2>Fresh PYQ-focused quiz.</h2>
+  <p class="pageIntro">Choose your purpose first. Course preparation and government-exam preparation stay separate.</p>
+  <div class="controls purposeControls">
+    <label>Purpose<select id="qpurpose" onchange="syncPurposeFields('q')"><option value="course">Course / Degree</option><option value="government">Government Exam</option></select></label>
+    <label id="qcourseWrap">Course<select id="qcourse"><option>B.Tech</option><option>BCA</option><option>MCA</option><option>M.Tech</option><option>B.Pharm</option><option>B.Sc</option></select></label>
+    <label id="qexamWrap" hidden>Exam<select id="qexam"></select></label>
+    <label>Subject<input id="qsubject" placeholder="Physics / DBMS / Maths / etc."></label>
+    <label>Difficulty<select id="qlevel"><option>Mixed</option><option>Easy</option><option>Medium</option><option>Hard</option></select></label>
+    <label>Questions<select id="qcount"><option>5</option><option selected>10</option><option>20</option><option>30</option><option>50</option></select></label>
+    <button class="primary" type="button" onclick="generateQuiz()">Generate Quiz</button>
+  </div>
+  <div id="quizOut" class="output">Choose purpose, subject and question count.</div>
+</section>
+{% endblock %}

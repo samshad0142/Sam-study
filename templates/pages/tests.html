@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}SamStudy • Tests{% endblock %}
+{% block content %}
+<section class="pageSection authPage" data-auth-page="true" id="testsPage">
+  <p class="eyebrow">REAL-EXAM PRACTICE TEST</p>
+  <h2>Attempt a full-style test.</h2>
+  <p class="pageIntro">Pick course or government-exam preparation, then choose the subject/paper.</p>
+  <div class="controls purposeControls">
+    <label>Purpose<select id="tpurpose" onchange="syncPurposeFields('t')"><option value="course">Course / Degree</option><option value="government">Government Exam</option></select></label>
+    <label id="tcourseWrap">Course<select id="tcourse"><option>B.Tech</option><option>BCA</option><option>MCA</option><option>M.Tech</option><option>B.Pharm</option><option>B.Sc</option></select></label>
+    <label id="texamWrap" hidden>Exam<select id="texam"></select></label>
+    <label>Subject / Paper<input id="tsubject" placeholder="Physics / DBMS / General Studies / etc."></label>
+    <label>Level<select id="tdifficulty"><option>Real exam</option><option>Easy</option><option>Medium</option><option>Hard</option></select></label>
+    <label>Questions<select id="tcount"><option>10</option><option selected>20</option><option>30</option><option>50</option><option>100</option></select></label>
+    <button class="primary" type="button" onclick="generateTest()">Start Test</button>
+  </div>
+  <div id="testOut" class="output">Select your purpose and start a timed practice test.</div>
+</section>
+{% endblock %}

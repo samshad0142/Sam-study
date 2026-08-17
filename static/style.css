@@ -416,3 +416,150 @@ body.light .card:nth-child(4) .year {
     background: #fff5d9 !important;
     color: #bd7900 !important;
 }
+/* ===== MORE LEARNING CARDS ===== */
+
+.more-learning {
+  margin: 55px 0 35px;
+}
+
+.more-learning h2 {
+  margin: 0 0 28px;
+  color: var(--text, #f5f7fb);
+  font-size: 38px;
+  line-height: 1.1;
+}
+
+.learning-grid {
+  display: grid;
+  gap: 20px;
+}
+
+.learning-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  min-height: 145px;
+  padding: 28px;
+  box-sizing: border-box;
+
+  background: #092031;
+  border: 1px solid #28546b;
+  border-radius: 28px;
+
+  color: #f5f7fb !important;
+  text-decoration: none !important;
+
+  transition: transform .2s ease, border-color .2s ease;
+}
+
+.learning-card:hover {
+  transform: translateY(-3px);
+  border-color: #25b8ff;
+}
+
+.learning-icon {
+  width: 84px;
+  height: 84px;
+  min-width: 84px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 22px;
+  color: #fff;
+  font-size: 27px;
+  font-weight: 900;
+}
+
+.notes-card .learning-icon {
+  background: #19a9e8;
+}
+
+.learning-3d-card .learning-icon {
+  background: #7c3aed;
+}
+
+.ai-card .learning-icon {
+  background: #12c4d0;
+}
+
+.learning-card h3 {
+  margin: 0 0 7px;
+  color: #f5f7fb !important;
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.learning-card p {
+  margin: 0;
+  color: #a9bbca !important;
+  font-size: 18px;
+  line-height: 1.4;
+}
+
+.learning-arrow {
+  margin-left: auto;
+  color: #29b8ff !important;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+
+/* ===== LIGHT MODE ===== */
+
+body.light .learning-card {
+  background: #ffffff;
+  border-color: #8ccde8;
+  box-shadow: 0 8px 25px rgba(0,0,0,.08);
+}
+
+body.light .learning-card h3 {
+  color: #102131 !important;
+}
+
+body.light .learning-card p {
+  color: #5c7180 !important;
+}
+
+
+/* ===== MOBILE ===== */
+
+@media (max-width: 600px) {
+
+  .more-learning {
+    margin-top: 45px;
+  }
+
+  .more-learning h2 {
+    font-size: 32px;
+  }
+
+  .learning-card {
+    min-height: 125px;
+    padding: 20px;
+    gap: 17px;
+    border-radius: 24px;
+  }
+
+  .learning-icon {
+    width: 72px;
+    height: 72px;
+    min-width: 72px;
+    border-radius: 19px;
+    font-size: 23px;
+  }
+
+  .learning-card h3 {
+    font-size: 23px;
+  }
+
+  .learning-card p {
+    font-size: 16px;
+  }
+
+  .learning-arrow {
+    font-size: 25px;
+  }
+}

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#06111d">
+  <script>
+    try {
+      if (localStorage.getItem("samstudy-theme") === "light") {
+        document.documentElement.classList.add("preLight");
+      }
+    } catch(e) {}
+  </script>
+  <title>{% block title %}SamStudy • Learn. Grow. Succeed.{% endblock %}</title>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <script>
+    try {
+      if (document.documentElement.classList.contains("preLight")) {
+        document.body.classList.add("light");
+      }
+    } catch(e) {}
+  </script>
+  {% include 'partials/header.html' %}
+  <main id="home">
+    {% block content %}{% endblock %}
+  </main>
+  {% include 'partials/footer.html' %}
+  {% include 'partials/bottom_nav.html' %}
+
+  {% include 'modals/auth.html' %}
+  {% include 'modals/profile.html' %}
+  {% include 'modals/note.html' %}
+  {% include 'modals/admin.html' %}
+
+  <script>
+    window.FIREBASE_CONFIG={{ firebase_config|safe }};
+    window.ADMIN_EMAILS={{ admin_emails|tojson }};
+    window.EXAM_OPTIONS={{ (['GATE','SSC','Railway','UPSC','Army','NEET UG','NEET PG','JEE Main','JEE Advanced','AKTU','Other Government Exam']|tojson) }};
+  </script>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+  <script>
+    try {
+      const meta=document.querySelector('meta[name="theme-color"]');
+      if(meta) meta.content=document.body.classList.contains('light')?'#f2f8fc':'#06111d';
+    } catch(e) {}
+  </script>
+</body>
+</html>

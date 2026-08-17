@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}SamStudy • Batches{% endblock %}
+{% block content %}
+<section class="pageSection authPage" data-auth-page="true" id="batchesPage">
+  <p class="eyebrow">B.TECH BATCHES</p>
+  <h2>Choose your year.</h2>
+  <p class="pageIntro">Select a year to open its subjects and notes.</p>
+  <div id="batchList" class="rows" aria-live="polite"></div>
+  <div class="pageLinks"><a class="outline" href="/notes">Open Notes</a></div>
+</section>
+{% endblock %}

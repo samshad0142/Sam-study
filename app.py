@@ -404,6 +404,22 @@ def submit_test():
         con.commit()
     return jsonify(score=score,max_marks=maxmarks,accuracy=accuracy,total=len(qs),duration=duration,results=results)
 
+# =========================
+# EXTRA LEARNING PAGES
+# =========================
 
-if __name__=="__main__":
-    app.run(host="0.0.0.0",port=int(os.getenv("PORT","5000")))
+@app.get("/3d")
+def learning_3d():
+    return render_template("3d.html")
+
+
+@app.get("/ai-doubt")
+def ai_doubt_page():
+    return render_template("ai_doubt.html")
+
+
+if __name__ == "__main__":
+    app.run(
+        host="0.0.0.0",
+        port=int(os.getenv("PORT", "5000"))
+    )

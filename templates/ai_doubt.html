@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block title %}SamStudy • AI Doubt Solver{% endblock %}
+
+{% block content %}
+
+<section class="pageHero">
+    <p class="eyebrow">AI DOUBT SOLVER</p>
+
+    <h1>Ask your doubt.</h1>
+
+    <p class="lead">
+        Ask with text or upload a photo of your question.
+    </p>
+</section>
+
+
+<section class="ai-doubt-page">
+
+    <textarea
+        id="doubtInput"
+        placeholder="Type your doubt here..."
+        rows="7"
+    ></textarea>
+
+    <input
+        type="file"
+        id="doubtImage"
+        accept="image/*"
+    >
+
+    <button
+        class="primary"
+        type="button"
+        onclick="solveDoubt()"
+    >
+        Solve with AI
+    </button>
+
+    <div
+        id="doubtResult"
+        class="ai-result"
+        style="display:none;"
+    ></div>
+
+</section>
+
+
+<script>
+async function solveDoubt() {
+
+    const doubt = document.getElementById("doubtInput").value.trim();
+    const file = document.getElementById("doubtImage").files[0];
+    const result = document.getElementById("doubtResult");
+
+    if (!doubt && !file) {
+        result.style.display = "block";
+        result.textContent = "Please type a doubt or upload an image.";
+        return;
+    }
+
+    result.style.display = "block";
+    result.textContent = "Solving your doubt...";
+
+    let image = "";
+
+    if (file) {
+        image = await new Promise((resolve) => {
+            const reader = new FileReader();
+
+            reader.onload = () => resolve(reader.result);
+            reader.readAsDataURL(file);
+        });
+    }
+
+    try {
+
+        const response = await fetch("/api/ai/doubt", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                doubt: doubt,
+                image: image
+            })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.error || "AI service failed.");
+        }
+
+        result.innerHTML = formatAIAnswer(data.answer || "No answer received.");
+
+    } catch (error) {
+
+        result.textContent = error.message;
+
+    }
+}
+
+
+function formatAIAnswer(text) {
+
+    return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/\n/g, "<br>");
+}
+</script>
+
+{% endblock %}

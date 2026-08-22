@@ -38,7 +38,7 @@
 
   <script>
     window.FIREBASE_CONFIG={{ firebase_config|safe }};
-    window.ADMIN_EMAILS={{ admin_emails|tojson }};
+    window.ADMIN_EMAILS={{ admin_emails|default([], true)|tojson }};
     window.EXAM_OPTIONS={{ (['GATE','SSC','Railway','UPSC','Army','NEET UG','NEET PG','JEE Main','JEE Advanced','AKTU','Other Government Exam']|tojson) }};
   </script>
   <script src="{{ url_for('static', filename='app.js') }}"></script>

@@ -1,0 +1,9 @@
+{
+  "name": "SamStudy",
+  "short_name": "SamStudy",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#06111c",
+  "theme_color": "#06111c",
+  "icons": [{"src":"/assets/samstudy-logo.png","sizes":"192x192","type":"image/png"}]
+}

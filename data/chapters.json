@@ -1,0 +1,751 @@
+{
+  "AI & ML": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "Advanced Accounting": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "Advanced Algorithms": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "Advanced Communication": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "Advanced DBMS": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "Advanced Data Structures": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "Botany": [
+    "Cell Biology",
+    "Plant Anatomy",
+    "Plant Physiology",
+    "Genetics",
+    "Ecology",
+    "Plant Reproduction"
+  ],
+  "Business Economics": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "Business Law": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "Business Studies": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "CSAT": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "Chemistry": [
+    "Some Basic Concepts",
+    "Atomic Structure",
+    "Chemical Bonding",
+    "Thermodynamics",
+    "Equilibrium",
+    "Organic Chemistry Basics",
+    "Hydrocarbons",
+    "Electrochemistry"
+  ],
+  "Child Development": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "Circuit Theory": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "Cloud Computing": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "Computer": [
+    "Computer Fundamentals",
+    "Operating Systems",
+    "MS Office",
+    "Internet & Networking",
+    "Cyber Security",
+    "Database Basics"
+  ],
+  "Computer Knowledge": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "Computer Networks": [
+    "Network Models",
+    "Physical & Data Link Layer",
+    "IP Addressing",
+    "Routing",
+    "Transport Layer",
+    "Application Layer",
+    "Network Security"
+  ],
+  "Corporate Law": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "Current Affairs": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "DBMS": [
+    "Database Fundamentals",
+    "ER Model",
+    "Relational Model",
+    "SQL",
+    "Normalization",
+    "Transactions",
+    "Indexing",
+    "Concurrency Control"
+  ],
+  "Data Structures": [
+    "Arrays",
+    "Linked Lists",
+    "Stacks",
+    "Queues",
+    "Trees",
+    "Graphs",
+    "Hashing",
+    "Sorting & Searching"
+  ],
+  "Digital Electronics": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "Economics": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "Elementary Mathematics": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "Embedded Systems": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "Engineering Mechanics": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "English": [
+    "Parts of Speech",
+    "Tenses",
+    "Subject-Verb Agreement",
+    "Active & Passive Voice",
+    "Direct & Indirect Speech",
+    "Error Detection",
+    "Vocabulary",
+    "Reading Comprehension"
+  ],
+  "English Language": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "English Language & Comprehension": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "English/Hindi": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "Essay": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "Financial Accounting": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "Fluid Mechanics": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "GS Paper I": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "GS Paper II": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "GS Paper III": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "GS Paper IV": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "General Awareness": [
+    "Indian History",
+    "Indian Polity",
+    "Geography",
+    "Economy",
+    "General Science",
+    "Static GK",
+    "Current Affairs"
+  ],
+  "General Intelligence & Reasoning": [
+    "Analogy",
+    "Classification",
+    "Series",
+    "Coding-Decoding",
+    "Blood Relations",
+    "Direction Sense",
+    "Syllogism",
+    "Venn Diagrams",
+    "Statement & Conclusion",
+    "Puzzles"
+  ],
+  "General Knowledge": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "General Knowledge & General Awareness": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "General Science": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "General Studies": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "General Studies Paper I": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "Geography": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "History": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "Manufacturing": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "Mathematical Abilities": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "Mathematics": [
+    "Sets & Relations",
+    "Functions",
+    "Quadratic Equations",
+    "Sequence & Series",
+    "Limits & Continuity",
+    "Differentiation",
+    "Integration",
+    "Probability",
+    "Vectors",
+    "3-D Geometry"
+  ],
+  "Medicine": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "Microprocessors": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "Numerical & Mathematical Ability": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "Operating Systems": [
+    "Processes",
+    "Threads",
+    "CPU Scheduling",
+    "Synchronization",
+    "Deadlocks",
+    "Memory Management",
+    "File Systems",
+    "I/O Systems"
+  ],
+  "Pathology": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "Pedagogy": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "Pharmacology": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "Physics": [
+    "Units & Measurements",
+    "Kinematics",
+    "Laws of Motion",
+    "Work, Energy & Power",
+    "Rotational Motion",
+    "Thermodynamics",
+    "Electrostatics",
+    "Current Electricity",
+    "Optics"
+  ],
+  "Political Science": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "Programming": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "Programming in C": [
+    "Introduction to C",
+    "Data Types & Operators",
+    "Control Statements",
+    "Functions",
+    "Arrays & Strings",
+    "Pointers",
+    "Structures & Unions",
+    "File Handling"
+  ],
+  "Quantitative Aptitude": [
+    "Number System",
+    "Percentage",
+    "Ratio & Proportion",
+    "Profit & Loss",
+    "Simple & Compound Interest",
+    "Time & Work",
+    "Time, Speed & Distance",
+    "Algebra",
+    "Geometry",
+    "Mensuration",
+    "Data Interpretation"
+  ],
+  "Reasoning": [
+    "Analogy",
+    "Series",
+    "Coding-Decoding",
+    "Syllogism",
+    "Statement & Conclusion",
+    "Puzzles",
+    "Blood Relations",
+    "Direction Sense"
+  ],
+  "Reasoning & General Intelligence": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "Reasoning Ability & Problem Solving": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "Research Methodology": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "Signals & Systems": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "Strength of Materials": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "Structural Analysis": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "Surgery": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "Surveying": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "Thermodynamics": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "VLSI": [
+    "Introduction",
+    "Core Concepts",
+    "Important Definitions",
+    "Key Formulas / Rules",
+    "Solved Examples",
+    "Common Mistakes",
+    "Practice Questions",
+    "Revision"
+  ],
+  "Web Technology": [
+    "HTML",
+    "CSS",
+    "JavaScript",
+    "DOM",
+    "HTTP & APIs",
+    "Web Security",
+    "Responsive Design"
+  ],
+  "Zoology": [
+    "Animal Tissues",
+    "Human Physiology",
+    "Human Reproduction",
+    "Genetics & Evolution",
+    "Human Health & Disease",
+    "Ecology"
+  ]
+}

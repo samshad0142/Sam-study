@@ -1,0 +1,521 @@
+{
+  "exams": {
+    "SSC": {
+      "types": [
+        "SSC MTS",
+        "SSC CHSL",
+        "SSC CGL Tier 1",
+        "SSC CGL Tier 2",
+        "SSC GD",
+        "SSC Delhi Police",
+        "SSC DP HCM"
+      ],
+      "batches": {
+        "SSC MTS": [
+          "SSC MTS Foundation",
+          "SSC MTS PYQ + Practice"
+        ],
+        "SSC CHSL": [
+          "SSC CHSL Foundation",
+          "SSC CHSL PYQ + Practice"
+        ],
+        "SSC CGL Tier 1": [
+          "SSC CGL Tier 1 Foundation",
+          "SSC CGL Tier 1 Target"
+        ],
+        "SSC CGL Tier 2": [
+          "SSC CGL Tier 2 Advanced",
+          "SSC CGL Tier 2 PYQ"
+        ],
+        "SSC GD": [
+          "SSC GD Foundation",
+          "SSC GD Practice + PYQ"
+        ],
+        "SSC Delhi Police": [
+          "SSC Delhi Police Foundation",
+          "SSC Delhi Police Practice"
+        ],
+        "SSC DP HCM": [
+          "SSC DP HCM Foundation",
+          "SSC DP HCM PYQ"
+        ]
+      },
+      "subjects": {
+        "SSC MTS": [
+          "Numerical & Mathematical Ability",
+          "Reasoning Ability & Problem Solving",
+          "General Awareness",
+          "English Language"
+        ],
+        "SSC CHSL": [
+          "General Intelligence & Reasoning",
+          "Quantitative Aptitude",
+          "General Awareness",
+          "English"
+        ],
+        "SSC CGL Tier 1": [
+          "General Intelligence & Reasoning",
+          "Quantitative Aptitude",
+          "General Awareness",
+          "English"
+        ],
+        "SSC CGL Tier 2": [
+          "Mathematical Abilities",
+          "Reasoning & General Intelligence",
+          "English Language & Comprehension",
+          "General Awareness",
+          "Computer Knowledge"
+        ],
+        "SSC GD": [
+          "General Intelligence & Reasoning",
+          "General Knowledge & General Awareness",
+          "Elementary Mathematics",
+          "English/Hindi"
+        ],
+        "SSC Delhi Police": [
+          "General Awareness",
+          "Quantitative Aptitude",
+          "Reasoning",
+          "Computer"
+        ],
+        "SSC DP HCM": [
+          "General Awareness",
+          "Quantitative Aptitude",
+          "Reasoning",
+          "English"
+        ]
+      }
+    },
+    "JEE": {
+      "types": [
+        "JEE Main",
+        "JEE Advanced"
+      ],
+      "batches": {
+        "JEE Main": [
+          "JEE Main — Class 11",
+          "JEE Main — Class 12",
+          "JEE Main — Dropper"
+        ],
+        "JEE Advanced": [
+          "JEE Advanced — Class 11",
+          "JEE Advanced — Class 12",
+          "JEE Advanced — Dropper"
+        ]
+      },
+      "subjects": {
+        "JEE Main": [
+          "Physics",
+          "Chemistry",
+          "Mathematics"
+        ],
+        "JEE Advanced": [
+          "Physics",
+          "Chemistry",
+          "Mathematics"
+        ]
+      }
+    },
+    "NEET": {
+      "types": [
+        "NEET UG",
+        "NEET PG"
+      ],
+      "batches": {
+        "NEET UG": [
+          "NEET UG — Class 11",
+          "NEET UG — Class 12",
+          "NEET UG — Dropper"
+        ],
+        "NEET PG": [
+          "NEET PG Foundation",
+          "NEET PG Target"
+        ]
+      },
+      "subjects": {
+        "NEET UG": [
+          "Physics",
+          "Chemistry",
+          "Botany",
+          "Zoology"
+        ],
+        "NEET PG": [
+          "Medicine",
+          "Surgery",
+          "Pharmacology",
+          "Pathology"
+        ]
+      }
+    },
+    "RRB": {
+      "types": [
+        "RRB NTPC Graduate",
+        "RRB NTPC 12th",
+        "RRB Group D"
+      ],
+      "batches": {
+        "RRB NTPC Graduate": [
+          "NTPC Graduate Foundation",
+          "NTPC Graduate PYQ"
+        ],
+        "RRB NTPC 12th": [
+          "NTPC 12th Foundation",
+          "NTPC 12th PYQ"
+        ],
+        "RRB Group D": [
+          "Group D Foundation",
+          "Group D PYQ"
+        ]
+      },
+      "subjects": {
+        "RRB NTPC Graduate": [
+          "General Awareness",
+          "Mathematics",
+          "General Intelligence & Reasoning"
+        ],
+        "RRB NTPC 12th": [
+          "General Awareness",
+          "Mathematics",
+          "General Intelligence & Reasoning"
+        ],
+        "RRB Group D": [
+          "General Science",
+          "Mathematics",
+          "General Intelligence & Reasoning",
+          "General Awareness"
+        ]
+      }
+    },
+    "UPSC": {
+      "types": [
+        "UPSC CDS",
+        "UPSC Prelims",
+        "UPSC Mains"
+      ],
+      "batches": {
+        "UPSC CDS": [
+          "CDS Foundation",
+          "CDS Target"
+        ],
+        "UPSC Prelims": [
+          "UPSC Prelims GS Foundation",
+          "UPSC Prelims CSAT"
+        ],
+        "UPSC Mains": [
+          "UPSC Mains GS",
+          "UPSC Mains Optional"
+        ]
+      },
+      "subjects": {
+        "UPSC CDS": [
+          "English",
+          "General Knowledge",
+          "Elementary Mathematics"
+        ],
+        "UPSC Prelims": [
+          "General Studies Paper I",
+          "CSAT"
+        ],
+        "UPSC Mains": [
+          "Essay",
+          "GS Paper I",
+          "GS Paper II",
+          "GS Paper III",
+          "GS Paper IV"
+        ]
+      }
+    },
+    "State/Other": {
+      "types": [
+        "State PCS",
+        "Police",
+        "Teaching"
+      ],
+      "batches": {
+        "State PCS": [
+          "PCS Foundation",
+          "PCS PYQ"
+        ],
+        "Police": [
+          "Police Foundation",
+          "Police PYQ"
+        ],
+        "Teaching": [
+          "Teaching Foundation",
+          "Teaching PYQ"
+        ]
+      },
+      "subjects": {
+        "State PCS": [
+          "General Studies",
+          "CSAT",
+          "Current Affairs"
+        ],
+        "Police": [
+          "Reasoning",
+          "Quantitative Aptitude",
+          "General Awareness"
+        ],
+        "Teaching": [
+          "Child Development",
+          "Pedagogy",
+          "General Awareness"
+        ]
+      }
+    }
+  },
+  "courses": {
+    "B.Tech": {
+      "types": [
+        "CSE",
+        "ECE",
+        "ME",
+        "CE"
+      ],
+      "batches": {
+        "CSE": [
+          "B.Tech CSE — 1st Year",
+          "B.Tech CSE — 2nd Year",
+          "B.Tech CSE — 3rd Year",
+          "B.Tech CSE — 4th Year"
+        ],
+        "ECE": [
+          "B.Tech ECE — 1st Year",
+          "B.Tech ECE — 2nd Year",
+          "B.Tech ECE — 3rd Year",
+          "B.Tech ECE — 4th Year"
+        ],
+        "ME": [
+          "B.Tech ME — 1st Year",
+          "B.Tech ME — 2nd Year",
+          "B.Tech ME — 3rd Year",
+          "B.Tech ME — 4th Year"
+        ],
+        "CE": [
+          "B.Tech CE — 1st Year",
+          "B.Tech CE — 2nd Year",
+          "B.Tech CE — 3rd Year",
+          "B.Tech CE — 4th Year"
+        ]
+      },
+      "subjects": {
+        "CSE": [
+          "Programming in C",
+          "Data Structures",
+          "DBMS",
+          "Operating Systems",
+          "Computer Networks"
+        ],
+        "ECE": [
+          "Circuit Theory",
+          "Digital Electronics",
+          "Signals & Systems",
+          "Microprocessors"
+        ],
+        "ME": [
+          "Engineering Mechanics",
+          "Thermodynamics",
+          "Fluid Mechanics",
+          "Manufacturing"
+        ],
+        "CE": [
+          "Engineering Mechanics",
+          "Surveying",
+          "Strength of Materials",
+          "Structural Analysis"
+        ]
+      }
+    },
+    "BCA": {
+      "types": [
+        "BCA"
+      ],
+      "batches": {
+        "BCA": [
+          "BCA — 1st Year",
+          "BCA — 2nd Year",
+          "BCA — 3rd Year"
+        ]
+      },
+      "subjects": {
+        "BCA": [
+          "Programming in C",
+          "Data Structures",
+          "DBMS",
+          "Computer Networks",
+          "Web Technology"
+        ]
+      }
+    },
+    "MCA": {
+      "types": [
+        "MCA"
+      ],
+      "batches": {
+        "MCA": [
+          "MCA — 1st Year",
+          "MCA — 2nd Year",
+          "MCA — 3rd Year"
+        ]
+      },
+      "subjects": {
+        "MCA": [
+          "Advanced Data Structures",
+          "DBMS",
+          "Operating Systems",
+          "Computer Networks",
+          "AI & ML"
+        ]
+      }
+    },
+    "B.Sc": {
+      "types": [
+        "PCM",
+        "PCB",
+        "Computer Science"
+      ],
+      "batches": {
+        "PCM": [
+          "B.Sc PCM — 1st Year",
+          "B.Sc PCM — 2nd Year",
+          "B.Sc PCM — 3rd Year"
+        ],
+        "PCB": [
+          "B.Sc PCB — 1st Year",
+          "B.Sc PCB — 2nd Year",
+          "B.Sc PCB — 3rd Year"
+        ],
+        "Computer Science": [
+          "B.Sc CS — 1st Year",
+          "B.Sc CS — 2nd Year",
+          "B.Sc CS — 3rd Year"
+        ]
+      },
+      "subjects": {
+        "PCM": [
+          "Physics",
+          "Chemistry",
+          "Mathematics"
+        ],
+        "PCB": [
+          "Physics",
+          "Chemistry",
+          "Botany",
+          "Zoology"
+        ],
+        "Computer Science": [
+          "Programming",
+          "Data Structures",
+          "DBMS",
+          "Computer Networks"
+        ]
+      }
+    },
+    "B.A": {
+      "types": [
+        "Arts"
+      ],
+      "batches": {
+        "Arts": [
+          "B.A — 1st Year",
+          "B.A — 2nd Year",
+          "B.A — 3rd Year"
+        ]
+      },
+      "subjects": {
+        "Arts": [
+          "History",
+          "Political Science",
+          "Geography",
+          "English"
+        ]
+      }
+    },
+    "B.Com": {
+      "types": [
+        "Commerce"
+      ],
+      "batches": {
+        "Commerce": [
+          "B.Com — 1st Year",
+          "B.Com — 2nd Year",
+          "B.Com — 3rd Year"
+        ]
+      },
+      "subjects": {
+        "Commerce": [
+          "Financial Accounting",
+          "Business Law",
+          "Economics",
+          "Business Studies"
+        ]
+      }
+    },
+    "M.Com": {
+      "types": [
+        "Commerce"
+      ],
+      "batches": {
+        "Commerce": [
+          "M.Com — 1st Year",
+          "M.Com — 2nd Year"
+        ]
+      },
+      "subjects": {
+        "Commerce": [
+          "Advanced Accounting",
+          "Business Economics",
+          "Corporate Law"
+        ]
+      }
+    },
+    "M.A": {
+      "types": [
+        "Arts"
+      ],
+      "batches": {
+        "Arts": [
+          "M.A — 1st Year",
+          "M.A — 2nd Year"
+        ]
+      },
+      "subjects": {
+        "Arts": [
+          "History",
+          "Political Science",
+          "Geography",
+          "Research Methodology"
+        ]
+      }
+    },
+    "M.Tech": {
+      "types": [
+        "CSE",
+        "ECE"
+      ],
+      "batches": {
+        "CSE": [
+          "M.Tech CSE — 1st Year",
+          "M.Tech CSE — 2nd Year"
+        ],
+        "ECE": [
+          "M.Tech ECE — 1st Year",
+          "M.Tech ECE — 2nd Year"
+        ]
+      },
+      "subjects": {
+        "CSE": [
+          "Advanced Algorithms",
+          "Advanced DBMS",
+          "Cloud Computing",
+          "Research Methodology"
+        ],
+        "ECE": [
+          "VLSI",
+          "Advanced Communication",
+          "Embedded Systems"
+        ]
+      }
+    }
+  }
+}
